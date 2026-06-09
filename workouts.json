@@ -1,0 +1,125 @@
+{
+  "defaults": {
+    "cadence_min": 80,
+    "cadence_max": 90
+  },
+  "workouts": [
+    {
+      "name": "Zone 2 Ride",
+      "type": "timed",
+      "phases": [
+        {
+          "name": "Ride",
+          "duration": 1800,
+          "zone": 2,
+          "cadence_min": 80,
+          "cadence_max": 90
+        }
+      ]
+    },
+    {
+      "name": "Week 7 Intervals",
+      "type": "structured",
+      "phases": [
+        {
+          "name": "Warm Up",
+          "duration": 600,
+          "zone": 2,
+          "cadence_min": 80,
+          "cadence_max": 90
+        },
+        {
+          "name": "Hard",
+          "duration": 60,
+          "zone": 5,
+          "cadence_min": 90,
+          "cadence_max": 100
+        },
+        {
+          "name": "Easy",
+          "duration": 120,
+          "zone": 2,
+          "cadence_min": 80,
+          "cadence_max": 90
+        },
+        {
+          "name": "Hard",
+          "duration": 60,
+          "zone": 5,
+          "cadence_min": 90,
+          "cadence_max": 100
+        },
+        {
+          "name": "Easy",
+          "duration": 120,
+          "zone": 2,
+          "cadence_min": 80,
+          "cadence_max": 90
+        },
+        {
+          "name": "Hard",
+          "duration": 60,
+          "zone": 5,
+          "cadence_min": 90,
+          "cadence_max": 100
+        },
+        {
+          "name": "Easy",
+          "duration": 120,
+          "zone": 2,
+          "cadence_min": 80,
+          "cadence_max": 90
+        },
+        {
+          "name": "Hard",
+          "duration": 60,
+          "zone": 5,
+          "cadence_min": 90,
+          "cadence_max": 100
+        },
+        {
+          "name": "Easy",
+          "duration": 120,
+          "zone": 2,
+          "cadence_min": 80,
+          "cadence_max": 90
+        },
+        {
+          "name": "Hard",
+          "duration": 60,
+          "zone": 5,
+          "cadence_min": 90,
+          "cadence_max": 100
+        },
+        {
+          "name": "Easy",
+          "duration": 120,
+          "zone": 2,
+          "cadence_min": 80,
+          "cadence_max": 90
+        },
+        {
+          "name": "Hard",
+          "duration": 60,
+          "zone": 5,
+          "cadence_min": 90,
+          "cadence_max": 100
+        },
+        {
+          "name": "Easy",
+          "duration": 120,
+          "zone": 2,
+          "cadence_min": 80,
+          "cadence_max": 90
+        },
+        {
+          "name": "Cool Down",
+          "duration": 420,
+          "zone": 2,
+          "cadence_min": 70,
+          "cadence_max": 80
+        }
+      ]
+    }
+  ]
+}

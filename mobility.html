@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Mobility Routine</title>
+<meta name="theme-color" content="#0d0d0d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAD5ElEQVR4nO3VsXHcUBBEQSZw+UegOBQaJXoyWCxJBDC7f9poH/d3Xt3b6/V6h1Zv6Q+AJAFQTQBUEwDVBEA1AVBNAFQTANUEQDUBUE0AVBMA1QRANQFQTQBUE0D6AD9/xL+hmQCuftDfg75b+jeeRADfebwHxi6Km2+Y/oBN0iMXxA03TX/AdOkhi+Hm+6Y/YKL0YMXw4K3THzBFephiCN09/QFp6RFOkL6BAAx/hPRNBGD4I6RvJADDHyF9MwEY/gjpGwrA8EdI31QAxh+Xvq0ADH+E9K0FYPxx6ZsLwPBHSG+gNoD04dkfwdoA0gfnjAhWBpA+NOdEsC6A9IE5K4I1AaSPypkhrAggfUjOjWB8AOkDcnYEowNIH47zIxgbQPpgdEQwMoD0oeiJQAAIYJL0geiKYFQA6cPQF8GYANIHoTOCEQGkD0FvBPEA0gcgTwBUqw0g/fDMURdA+sGZRwBUqwkg/dDMdXwA6QdmPgFQ7dgA0g/LHgKg2nEBpB+UfQRAtWMCSD8kewmAausDSD8g+wmAamsDSD8c5xAA1dYFkH4wziMAqgmAamsCSD8U5xIA1QRAtfEBpB+I8wmAagKg2tgA0g9DDwFQTQBUEwDVxgWQfhD6CIBqAqCaAKgmAKqNCSD9EPQSANUEQDUBUE0AVBMA1QRANQFQTQBUEwDVBEA1AVAtHkD6AcA/ALXi/wACIEkAVBMA1QRANQFQTQBUEwDVBEA1AVBNAFQTANVGBCACEi7ZrQDYSgBUEwDVBEC1UQGIgCddtlkBsJEAqCYAqo0MQAQ84dK9CoBtBEC10QGIgDtdvlUBsIkAqLYiABFwh1t2KgC2EADVVgUgAq5020YFwAYrAxABV7h1nwJgutUBiIDvuH2bAmCyIwIQAf/jkV0KgKmOCkAE/IvHNikAJjoyABHwNx7dowCY5ugARMBXHt9iIgAR8JnIDgXAFFUBiIA/xTaYDEAEfIjuTwCkVQcggm7x7aU/QAS90psbFYAIuqS3NjIAEXRIb2x0ACI4W3pbAkAA0wMQwZnSm1oVgAjOkt7SygBEcIb0hlYHIILd0ts5IgAR7JTezFEBCGGP9EaODkAEs6W3URGACGZKb6IqABHMkt5CZQAimCG9geoAhGD4AhCB8QtACIYvABEYvwCEYPgCEILhC0AIhi8AIRi+AIRg+AL46iEGDNHwA3dPf8BE6WEa/YO3Tn/AdOnBGv3N901/wCbpIRv9DTdNf8Bm6ZEb/AU3TH/AaYx9FwGkD2DQ2fdPfwAkCYBqAqCaAKgmAKoJgGoCoJoAqCYAqgmAagKgmgCoJgCqCYBqAqDaL6hMkUjrrWcqAAAAAElFTkSuQmCC">
+<link rel="manifest" href="manifest.json">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg:        #0d0d0d;
+  --panel:     #1a1a1a;
+  --surface:   #242424;
+  --border:    #2e2e2e;
+  --text:      #ffffff;
+  --text-sec:  #888888;
+  --text-muted:#444444;
+  --accent:    #00BFA5;
+  --accent-dim:#00594d;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --sec-color: #00BFA5;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; }
+body { min-height:100dvh; padding-bottom:32px; padding-top:72px; }
+
+/* ── STICKY TIMER ── */
+.sticky-timer {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 600px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 200;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+
+.timer-track {
+  flex: 1;
+  height: 4px;
+  background: var(--surface);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.timer-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 1s linear;
+}
+
+.timer-display {
+  font-size: 17px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  min-width: 48px;
+  text-align: right;
+}
+
+.timer-ctrl-btn {
+  font-family:'Inter',sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 7px 13px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn-start { background: var(--accent); color: #000; }
+.btn-screen { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
+.btn-screen.active { border-color: var(--accent); color: var(--accent); }
+
+/* ── PROGRESS DOTS ── */
+.progress-bar {
+  display: flex;
+  gap: 5px;
+  padding: 12px 16px 0;
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.prog-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+
+.prog-dot.done { background: var(--accent); }
+
+/* ── MAIN ── */
+main {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 8px 16px 0;
+}
+
+/* ── SECTIONS ── */
+.section { margin-bottom: 8px; }
+
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+
+.sec-num {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--sec-color);
+  opacity: 0.25;
+  line-height: 1;
+  min-width: 44px;
+  font-variant-numeric: tabular-nums;
+}
+
+.sec-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.sec-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ── EXERCISE CARDS ── */
+.ex-grid { display: flex; flex-direction: column; gap: 6px; }
+
+.ex-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--sec-color);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+  user-select: none;
+}
+
+.ex-card:active { background: var(--surface); }
+.ex-card.active { background: var(--surface); border-color: var(--sec-color); }
+
+.ex-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ex-left { flex: 1; }
+
+.ex-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.ex-cue {
+  font-size: 12px;
+  color: var(--text-sec);
+  line-height: 1.4;
+}
+
+.ex-meta { text-align: right; flex-shrink: 0; }
+
+.ex-time {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ex-hold-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Expanded detail */
+.ex-detail {
+  display: none;
+  font-size: 13px;
+  color: var(--text-sec);
+  line-height: 1.65;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  margin-top: 10px;
+}
+
+.ex-card.active .ex-detail { display: block; }
+.ex-detail strong { color: var(--accent); font-weight: 600; }
+
+/* Hold controls */
+.hold-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 8px;
+}
+
+.hold-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.hold-btn:active { opacity: 0.8; }
+.hold-btn.running { background: var(--surface); color: var(--accent); border: 1px solid var(--accent); }
+.hold-btn.done { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
+
+.hold-display {
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  min-width: 50px;
+  transition: color 0.3s;
+}
+
+.hold-display.done { color: var(--text-muted); }
+
+/* Watch link */
+.watch-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--accent-dim);
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.04em;
+  transition: background 0.2s;
+}
+
+.watch-link:active { background: var(--accent-dim); }
+
+/* Completion */
+.completion {
+  display: none;
+  margin: 16px 0;
+  padding: 24px;
+  background: var(--panel);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.completion.show { display: block; }
+.completion h3 { font-size: 20px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
+.completion p { font-size: 14px; color: var(--text-sec); }
+
+/* Note strip */
+.note-strip {
+  max-width: 600px;
+  margin: 16px auto 0;
+  padding: 14px 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: var(--text-sec);
+  line-height: 1.6;
+}
+
+.note-strip strong {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+/* Flash */
+.flash-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,191,165,0.25);
+  z-index: 500;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.flash-overlay.flash { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="flash-overlay" id="flashOverlay"></div>
+
+<!-- Sticky timer -->
+<div class="sticky-timer">
+  <button class="timer-ctrl-btn btn-start" id="timerBtn" onclick="toggleTimer()">Start</button>
+  <div class="timer-track"><div class="timer-fill" id="timerFill"></div></div>
+  <div class="timer-display" id="timerDisplay">30:00</div>
+  <button class="timer-ctrl-btn btn-screen" id="screenBtn" onclick="toggleScreenWake()">Screen On</button>
+  <a href="index.html" style="font-size:20px;color:var(--text-muted);text-decoration:none;padding:2px 0 2px 4px;">⌂</a>
+</div>
+
+<!-- Progress dots -->
+<div class="progress-bar" id="progressBar"></div>
+
+<main>
+  <div class="section">
+    <div class="section-head" style="--sec-color:#c45c2a">
+      <div class="sec-num">01</div>
+      <div class="sec-info">
+        <div class="sec-title">Hips & Hip Flexors</div>
+        <div class="sec-sub">12 minutes · 4 exercises · cycling's #1 problem area</div>
+      </div>
+    </div>
+    <div class="ex-grid">
+    <div class="ex-card" onclick="toggleCard(this,0)" data-hold="60">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">Low Lunge Hip Flexor Stretch</div>
+          <div class="ex-cue">Knee on a folded blanket, gentle forward shift — stop before any discomfort</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">3 min</div>
+          <div class="ex-hold-label">60 sec each side</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        Kneel on a folded blanket or yoga mat for cushioning. Put your right foot forward, left knee on the floor. <strong>Sit upright — don't lean forward.</strong> Gently shift your hips forward just a little, until you feel a mild pull at the front of the left hip. Even a tiny shift counts. Hold there, breathing slowly. No need to go deep — a gentle sensation is plenty. Switch sides. If kneeling is uncomfortable, use a chair: stand near the chair, step one foot back, and lightly bend the front knee instead.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Hold</span>
+            <div class="hold-countdown" id="hc-0">1:00</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-0"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-0"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,60)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-0"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=tsGPYSQbZx4" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    <div class="ex-card" onclick="toggleCard(this,1)" data-hold="90">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">Pigeon Pose</div>
+          <div class="ex-cue">Use a chair or lie on your back — no floor flexibility needed</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">4 min</div>
+          <div class="ex-hold-label">90 sec each side</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        <strong>Beginner version (chair):</strong> Sit in a firm chair. Cross your right ankle over your left knee, flex your right foot gently. Sit tall and feel a mild stretch in the right outer hip — that's enough. <strong>Floor version:</strong> Lie on your back. Cross your right ankle over your left knee. Keep both feet flexed. Either stay here, or if comfortable, lift your left leg toward your chest. <strong>Never force this one.</strong> If you feel knee pain rather than hip stretch, uncross and try the chair version. Hold whichever version 60–90 seconds each side.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Hold</span>
+            <div class="hold-countdown" id="hc-1">1:30</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-1"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-1"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,90)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-1"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=zuYbjkuKLKY" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    <div class="ex-card" onclick="toggleCard(this,2)" data-hold="90">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">90/90 Hip Stretch</div>
+          <div class="ex-cue">Sit on the floor with support behind you if needed</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">3 min</div>
+          <div class="ex-hold-label">90 sec each side</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        Sit on the floor. Bend both knees to 90 degrees — one in front, one to the side. <strong>If sitting upright feels hard, sit on a folded blanket or firm cushion</strong> to raise your hips slightly — this makes it much easier. Just sit tall here; you don't need to fold forward at all to get the benefit. Simply being in this position stretches the outer hip. If the position feels impossible, stay with the chair pigeon version above instead — it trains the same muscles.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Hold</span>
+            <div class="hold-countdown" id="hc-2">1:30</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-2"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-2"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,90)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-2"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=_rzJ1RXhM90" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    <div class="ex-card" onclick="toggleCard(this,3)" data-hold="60">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">Standing Figure-4 Stretch</div>
+          <div class="ex-cue">Stand near a wall — no squat required</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">2 min</div>
+          <div class="ex-hold-label">60 sec each side</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        Stand next to a wall and place one hand on it. Cross your right ankle over your left knee and flex your right foot. <strong>You don't need to squat at all</strong> — just standing with the ankle crossed gives a stretch. If you want a bit more, barely bend the standing knee. The wall is there to hold your full weight if needed. Alternatively, do this sitting in a chair (same position as the chair pigeon pose above) and lean forward from the hips slightly.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Hold</span>
+            <div class="hold-countdown" id="hc-3">1:00</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-3"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-3"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,60)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-3"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=uikhOx-AvxI" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-head" style="--sec-color:#2a6b5c">
+      <div class="sec-num">02</div>
+      <div class="sec-info">
+        <div class="sec-title">Lower Back</div>
+        <div class="sec-sub">10 minutes · 4 exercises · decompress the spine</div>
+      </div>
+    </div>
+    <div class="ex-grid">
+    <div class="ex-card" onclick="toggleCard(this,4)" data-hold="0">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">Cat-Cow</div>
+          <div class="ex-cue">On hands and knees — use a folded blanket under knees</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">2 min</div>
+          <div class="ex-hold-label">10 slow cycles</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        Fold a blanket under your knees for cushioning. Start on hands and knees. <strong>Make the movements very small to start</strong> — just a slight dip and slight rounding. You don't need a big arch or a big curve. Inhale and let your belly drop a tiny bit (cow). Exhale and gently round your back a tiny bit (cat). As it loosens up over the weeks, the range will naturally grow. Do 10 slow cycles, breathing with each movement. <strong>Chair version:</strong> Sit upright in a chair, hands on knees. Inhale and arch your back slightly; exhale and round it. Same benefit, no floor needed.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Per cycle</span>
+            <div class="hold-countdown" id="hc-4">0:05</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-4"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-4"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,0)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-4"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=xyNwxiuERXc" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    <div class="ex-card" onclick="toggleCard(this,5)" data-hold="45">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">Supine Knee-to-Chest</div>
+          <div class="ex-cue">Lie on your back — this one is easy for any flexibility level</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">2 min</div>
+          <div class="ex-hold-label">45 sec each side</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        Lie on your back — this is one of the most accessible stretches in the routine. Bend both knees and slowly pull one knee toward your chest. <strong>Hold your thigh rather than your shin</strong> if reaching the shin is hard — it works just as well. Pull only as far as feels comfortable. Rock gently side to side. <strong>Don't worry about straightening the other leg</strong> — keep both knees bent if that's easier on your back. Switch sides after 45 seconds. Finish by hugging both knees in together and rocking slowly left and right.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Hold</span>
+            <div class="hold-countdown" id="hc-5">0:45</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-5"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-5"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,45)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-5"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=bHxbbdJGhH4" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    <div class="ex-card" onclick="toggleCard(this,6)" data-hold="90">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">Supine Spinal Twist</div>
+          <div class="ex-cue">Lie back, let one knee fall sideways — use a pillow if needed</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">4 min</div>
+          <div class="ex-hold-label">90 sec each side</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        Lie on your back. Bend your right knee and let it fall slowly to the left side. <strong>Your knee does NOT need to reach the floor</strong> — place a pillow or folded blanket under it wherever it lands. Turn your head gently to the right. Arms relaxed. Just breathe. Even if your knee is floating 12 inches off the floor, the lower back is still rotating and releasing. Over weeks it will sink lower on its own. Hold 60–90 seconds. Come back to centre slowly, then repeat on the other side.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Hold</span>
+            <div class="hold-countdown" id="hc-6">1:30</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-6"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-6"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,90)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-6"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=TeAhhVD2q1c" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    <div class="ex-card" onclick="toggleCard(this,7)" data-hold="30">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">Child&#x27;s Pose with Lateral Reach</div>
+          <div class="ex-cue">Kneel on a blanket — hips don't need to reach heels</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">2 min</div>
+          <div class="ex-hold-label">30 sec × 3 positions</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        Kneel on a folded blanket. <strong>You don't need to sit all the way back to your heels</strong> — go as far back as is comfortable and stop there. Walk your hands forward along the floor until you feel a gentle stretch in your lower back. If your forehead doesn't reach the floor, rest it on your stacked fists or a pillow. Hold centre 30 seconds. Then slowly walk both hands to the right — feel the stretch along the left side of your back. Hold 30 seconds. Return to centre, then walk to the left. No need to go far — even a small sideways reach creates the stretch.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Hold</span>
+            <div class="hold-countdown" id="hc-7">0:30</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-7"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-7"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,30)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-7"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=YTAwpiX2Dsg" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-head" style="--sec-color:#4a5c8a">
+      <div class="sec-num">03</div>
+      <div class="sec-info">
+        <div class="sec-title">Shoulders & Neck</div>
+        <div class="sec-sub">8 minutes · 4 exercises · undo the handlebar hunch</div>
+      </div>
+    </div>
+    <div class="ex-grid">
+    <div class="ex-card" onclick="toggleCard(this,8)" data-hold="20">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">Neck Half-Circles</div>
+          <div class="ex-cue">Seated, tiny slow movements — less is more</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">2 min</div>
+          <div class="ex-hold-label">20 sec per position</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        Sit in a chair. <strong>Make these movements very small and slow</strong> — the neck doesn't need a big range. Gently tilt your right ear toward your right shoulder — just a few inches is fine. Hold 20 seconds, breathing out. Slowly bring your chin toward your chest. Hold 20 seconds. Tilt your left ear to your left shoulder. Hold 20 seconds. Come back to centre. <strong>Never roll the head backwards</strong> — only forward and side to side. If you feel any dizziness or sharp pain, stop and just do gentle side tilts only. Do 3 slow arcs total.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Hold</span>
+            <div class="hold-countdown" id="hc-8">0:20</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-8"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-8"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,20)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-8"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=LIVJZZyZ2qM" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    <div class="ex-card" onclick="toggleCard(this,9)" data-hold="45">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">Doorway Chest Opener</div>
+          <div class="ex-cue">Stand in any doorway — lean in gently, no force needed</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">2 min</div>
+          <div class="ex-hold-label">45 sec × 2</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        Stand in a doorway with your forearms resting on the frame, elbows at shoulder height. <strong>Don't lean far — just shift your weight forward slightly</strong> until you feel a mild pull across the front of your chest. Even standing upright with your arms on the frame gives a stretch. Hold 30–45 seconds, breathing slowly. Step back and repeat once more. <strong>No doorway?</strong> Stand tall, clasp your hands behind your lower back, and gently squeeze your shoulder blades together. That's the same stretch, no doorway needed.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Hold</span>
+            <div class="hold-countdown" id="hc-9">0:45</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-9"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-9"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,45)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-9"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=B9uY01NoqBg" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    <div class="ex-card" onclick="toggleCard(this,10)" data-hold="30">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">Foam Roller Thoracic Extension</div>
+          <div class="ex-cue">Sit in front of roller, lean back over it — let gravity do the work</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">2 min</div>
+          <div class="ex-hold-label">30 sec per spot</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        Place your foam roller on the floor horizontally. Sit on the floor in front of it, knees bent. <strong>Gently lean back so the roller sits across your upper-mid back</strong> — roughly where your shoulder blades are, not your lower back. Support your head with your hands clasped behind your neck. Let gravity pull your upper back over the roller. <strong>Start with zero effort</strong> — just let it rest there and breathe. After 20–30 seconds, shuffle slightly up or down to hit a different spot. You can roll very slowly back and forth. This directly reverses the rounded-forward position from the handlebars and is more effective than thread the needle for cyclists.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Hold per spot</span>
+            <div class="hold-countdown" id="hc-10">0:30</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-10"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-10"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,30)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-10"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=vwToKziL5A4" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    <div class="ex-card" onclick="toggleCard(this,11)" data-hold="30">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">Shoulder Rolls & Cross-Body Reach</div>
+          <div class="ex-cue">Standing or seated — gentle rolls and easy arm pull</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">2 min</div>
+          <div class="ex-hold-label">30 sec each side</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        Sit or stand — either works. Do 10 slow backward shoulder rolls. <strong>They don't need to be big</strong> — even small circles loosen things up. Then bring your right arm across your chest at shoulder height. Use your left hand to very gently guide it a little closer to your chest. <strong>Don't pull hard</strong> — just light pressure. You should feel a mild stretch in the back of the right shoulder. Keep the right shoulder down, not shrugged up. Hold 20–30 seconds. Switch sides. Finish with 5 more gentle backward rolls.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Hold</span>
+            <div class="hold-countdown" id="hc-11">0:30</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-11"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-11"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,30)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-11"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/shorts/A7kgx8gGmPA" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-head" style="--sec-color:#555555">
+      <div class="sec-num">04</div>
+      <div class="sec-info">
+        <div class="sec-title">Full Body Finish</div>
+        <div class="sec-sub">5 minutes · close the session</div>
+      </div>
+    </div>
+    <div class="ex-grid">
+    <div class="ex-card" onclick="toggleCard(this,12)" data-hold="300">
+      <div class="ex-header">
+        <div class="ex-left">
+          <div class="ex-name">Savasana — Calves on Chair</div>
+          <div class="ex-cue">Lie on your back, calves resting on a couch or chair seat</div>
+        </div>
+        <div class="ex-meta">
+          <div class="ex-time">5 min</div>
+          <div class="ex-hold-label">Passive hold</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        Pull a chair or use your couch. Lie on your back on the floor and rest your calves up on the seat — knees bent at roughly 90 degrees, thighs vertical. <strong>This is entirely passive</strong> — no effort required. Arms relaxed by your sides, palms up. Close your eyes and breathe slowly. Elevating the legs drains blood pooling from cycling, calms your nervous system, and gently decompresses the lower back. Far easier to get into than legs-up-the-wall and just as effective for recovery. Stay here the full 5 minutes — this is where your body processes the whole session.
+          <div class="hold-timer" onclick="event.stopPropagation()">
+            <span class="hold-label">Hold</span>
+            <div class="hold-countdown" id="hc-12">5:00</div>
+            <div class="hold-track"><div class="hold-fill" id="hf-12"></div></div>
+            </div>
+          <div class="hold-controls" onclick="event.stopPropagation()">
+            <div class="hold-timer-display" id="hold-display-12"></div>
+          </div>
+        <div class="hold-row" onclick="event.stopPropagation()">
+          <button class="hold-btn" onclick="startHold(this,300)">▶ Start Hold</button>
+          <span class="hold-display" id="hd-12"></span>
+        </div>
+        <a class="watch-link" href="https://www.youtube.com/watch?v=xmcDj4Bf--0" target="_blank" rel="noopener noreferrer">▶ Watch demonstration</a>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="completion" id="completion">
+    <h3>Session complete.</h3>
+    <p>30 minutes well spent. Your body will thank you on the bike.</p>
+  </div>
+</main>
+
+<div class="note-strip">
+  <strong>A note on intensity</strong>
+  Every exercise includes a beginner modification — use it. A tiny stretch held comfortably beats a big stretch that hurts. Tap any exercise to expand full instructions and modifications.
+</div>
+
+<script>
+// ── SESSION TIMER ──
+let timerInterval = null, timerRunning = false;
+let totalSeconds = 30*60, remaining = totalSeconds;
+
+function toggleTimer() {
+  const btn = document.getElementById('timerBtn');
+  if (timerRunning) {
+    clearInterval(timerInterval); timerRunning = false; btn.textContent = 'Resume';
+  } else {
+    timerRunning = true; btn.textContent = 'Pause';
+    timerInterval = setInterval(() => {
+      if (remaining <= 0) {
+        clearInterval(timerInterval);
+        document.getElementById('timerDisplay').textContent = '00:00';
+        document.getElementById('timerBtn').textContent = 'Done';
+        document.getElementById('timerFill').style.width = '100%';
+        document.getElementById('completion').classList.add('show');
+        return;
+      }
+      remaining--;
+      const pct = ((totalSeconds-remaining)/totalSeconds)*100;
+      document.getElementById('timerFill').style.width = pct+'%';
+      const m = Math.floor(remaining/60).toString().padStart(2,'0');
+      const s = (remaining%60).toString().padStart(2,'0');
+      document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+    }, 1000);
+  }
+}
+
+// ── PROGRESS DOTS ──
+const TOTAL = 13;
+let done = new Array(TOTAL).fill(false);
+
+function buildDots() {
+  const bar = document.getElementById('progressBar');
+  for (let i=0;i<TOTAL;i++) {
+    const d = document.createElement('div');
+    d.className = 'prog-dot'; d.id = `dot-${i}`;
+    bar.appendChild(d);
+  }
+}
+
+function toggleCard(card, idx) {
+  const wasActive = card.classList.contains('active');
+  document.querySelectorAll('.ex-card').forEach(c => c.classList.remove('active'));
+  if (!wasActive) card.classList.add('active');
+  if (!done[idx]) {
+    done[idx] = true;
+    document.getElementById(`dot-${idx}`).classList.add('done');
+  }
+  if (done.every(Boolean)) document.getElementById('completion').classList.add('show');
+}
+
+// ── HOLD TIMER ──
+let holdInterval = null, activeHoldBtn = null, activeHoldDisplay = null;
+
+function startHold(btn, secs) {
+  if (holdInterval) {
+    clearInterval(holdInterval); holdInterval = null;
+    if (activeHoldBtn && activeHoldBtn !== btn) {
+      activeHoldBtn.textContent = '▶ Start Hold';
+      activeHoldBtn.classList.remove('running');
+    }
+    if (activeHoldDisplay && activeHoldDisplay !== btn.nextElementSibling) {
+      activeHoldDisplay.textContent = ''; activeHoldDisplay.classList.remove('done');
+    }
+  }
+  if (activeHoldBtn === btn) { btn.textContent='▶ Start Hold'; btn.classList.remove('running','done'); activeHoldBtn=null; return; }
+  if (secs === 0) { alertHold(); return; }
+
+  let rem = secs;
+  activeHoldBtn = btn; activeHoldDisplay = btn.nextElementSibling;
+  btn.textContent = '⏸ Running'; btn.classList.add('running'); btn.classList.remove('done');
+  activeHoldDisplay.classList.remove('done');
+  activeHoldDisplay.textContent = fmt(rem);
+
+  holdInterval = setInterval(() => {
+    rem--;
+    if (activeHoldDisplay) activeHoldDisplay.textContent = fmt(rem);
+    if (rem <= 0) {
+      clearInterval(holdInterval); holdInterval = null;
+      alertHold();
+      btn.textContent = '▶ Start Hold'; btn.classList.remove('running'); btn.classList.add('done');
+      if (activeHoldDisplay) { activeHoldDisplay.textContent = 'Done ✓'; activeHoldDisplay.classList.add('done'); }
+      setTimeout(() => {
+        btn.classList.remove('done');
+        if (activeHoldDisplay) { activeHoldDisplay.textContent=''; activeHoldDisplay.classList.remove('done'); }
+        btn.textContent = '▶ Start Hold';
+      }, 2000);
+    }
+  }, 1000);
+}
+
+function fmt(s) {
+  return s >= 60 ? `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}` : `${s}s`;
+}
+
+function alertHold() {
+  const o = document.getElementById('flashOverlay');
+  o.classList.add('flash'); setTimeout(() => o.classList.remove('flash'), 400);
+  try {
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type='sine'; osc.frequency.setValueAtTime(880, ctx.currentTime);
+    gain.gain.setValueAtTime(0.4, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.6);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime+0.6);
+  } catch(e) {}
+}
+
+// ── SCREEN WAKE ──
+let wakeLock = null;
+async function toggleScreenWake() {
+  const btn = document.getElementById('screenBtn');
+  if (wakeLock) {
+    try { await wakeLock.release(); } catch(e) {}
+    wakeLock=null; btn.textContent='Screen On'; btn.classList.remove('active');
+  } else {
+    if (!('wakeLock' in navigator)) { btn.textContent='Not supported'; setTimeout(()=>btn.textContent='Screen On',2500); return; }
+    try {
+      wakeLock = await navigator.wakeLock.request('screen');
+      btn.textContent='● Screen On'; btn.classList.add('active');
+      wakeLock.addEventListener('release',()=>{ wakeLock=null; btn.textContent='Screen On'; btn.classList.remove('active'); });
+    } catch(e) { btn.textContent='Tap again'; setTimeout(()=>btn.textContent='Screen On',2500); }
+  }
+}
+
+buildDots();
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>

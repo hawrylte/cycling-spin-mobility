@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Training Hub</title>
+<meta name="theme-color" content="#0d0d0d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Training">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAAD5ElEQVR4nO3VsXHcUBBEQSZw+UegOBQaJXoyWCxJBDC7f9poH/d3Xt3b6/V6h1Zv6Q+AJAFQTQBUEwDVBEA1AVBNAFQTANUEQDUBUE0AVBMA1QRANQFQTQBUE0D6AD9/xL+hmQCuftDfg75b+jeeRADfebwHxi6Km2+Y/oBN0iMXxA03TX/AdOkhi+Hm+6Y/YKL0YMXw4K3THzBFephiCN09/QFp6RFOkL6BAAx/hPRNBGD4I6RvJADDHyF9MwEY/gjpGwrA8EdI31QAxh+Xvq0ADH+E9K0FYPxx6ZsLwPBHSG+gNoD04dkfwdoA0gfnjAhWBpA+NOdEsC6A9IE5K4I1AaSPypkhrAggfUjOjWB8AOkDcnYEowNIH47zIxgbQPpgdEQwMoD0oeiJQAAIYJL0geiKYFQA6cPQF8GYANIHoTOCEQGkD0FvBPEA0gcgTwBUqw0g/fDMURdA+sGZRwBUqwkg/dDMdXwA6QdmPgFQ7dgA0g/LHgKg2nEBpB+UfQRAtWMCSD8kewmAausDSD8g+wmAamsDSD8c5xAA1dYFkH4wziMAqgmAamsCSD8U5xIA1QRAtfEBpB+I8wmAagKg2tgA0g9DDwFQTQBUEwDVxgWQfhD6CIBqAqCaAKgmAKqNCSD9EPQSANUEQDUBUE0AVBMA1QRANQFQTQBUEwDVBEA1AVAtHkD6AcA/ALXi/wACIEkAVBMA1QRANQFQTQBUEwDVBEA1AVBNAFQTANVGBCACEi7ZrQDYSgBUEwDVBEC1UQGIgCddtlkBsJEAqCYAqo0MQAQ84dK9CoBtBEC10QGIgDtdvlUBsIkAqLYiABFwh1t2KgC2EADVVgUgAq5020YFwAYrAxABV7h1nwJgutUBiIDvuH2bAmCyIwIQAf/jkV0KgKmOCkAE/IvHNikAJjoyABHwNx7dowCY5ugARMBXHt9iIgAR8JnIDgXAFFUBiIA/xTaYDEAEfIjuTwCkVQcggm7x7aU/QAS90psbFYAIuqS3NjIAEXRIb2x0ACI4W3pbAkAA0wMQwZnSm1oVgAjOkt7SygBEcIb0hlYHIILd0ts5IgAR7JTezFEBCGGP9EaODkAEs6W3URGACGZKb6IqABHMkt5CZQAimCG9geoAhGD4AhCB8QtACIYvABEYvwCEYPgCEILhC0AIhi8AIRi+AIRg+AL46iEGDNHwA3dPf8BE6WEa/YO3Tn/AdOnBGv3N901/wCbpIRv9DTdNf8Bm6ZEb/AU3TH/AaYx9FwGkD2DQ2fdPfwAkCYBqAqCaAKgmAKoJgGoCoJoAqCYAqgmAagKgmgCoJgCqCYBqAqDaL6hMkUjrrWcqAAAAAElFTkSuQmCC">
+<link rel="manifest" href="manifest.json">
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg:        #0d0d0d;
+  --panel:     #1a1a1a;
+  --surface:   #242424;
+  --border:    #2e2e2e;
+  --text:      #ffffff;
+  --text-sec:  #888888;
+  --text-muted:#444444;
+  --accent:    #00BFA5;
+  --accent-dim:#00594d;
+  --z1: #6b6b6b;
+  --z2: #4a90d9;
+  --z3: #4caf50;
+  --z4: #ff9800;
+  --z5: #f44336;
+  --current-zone: #6b6b6b;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html, body { height:100%; background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; overflow:hidden; }
+
+.btn {
+  font-family:'Inter',sans-serif;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:0.04em;
+  border:none;
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+  padding:10px 16px;
+  transition:background 0.2s, color 0.2s, opacity 0.2s;
+  white-space:nowrap;
+  user-select:none;
+}
+.btn-primary { background:var(--accent); color:#000; }
+.btn-primary:active { opacity:0.8; }
+.btn-secondary { background:var(--surface); color:var(--text-sec); border:1px solid var(--border); }
+.btn-secondary:active { background:var(--border); }
+.btn-secondary.active { border-color:var(--accent); color:var(--accent); }
+.btn-ghost { background:transparent; color:var(--text-muted); border:1px solid var(--border); }
+.btn-ghost:active { background:var(--surface); }
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 24px;
+  gap: 0;
+}
+
+.hub-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.hub-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.hub-sub {
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.app-tile {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-tile:active {
+  transform: scale(0.98);
+  background: var(--surface);
+}
+
+.app-tile::after {
+  content: '→';
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--text-muted);
+}
+
+.tile-icon {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.tile-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.tile-desc {
+  font-size: 13px;
+  color: var(--text-sec);
+  line-height: 1.5;
+}
+
+.tile-spin { border-top: 3px solid var(--accent); }
+.tile-mobility { border-top: 3px solid var(--z2); }
+
+.tile-spin .tile-icon { color: var(--accent); }
+.tile-mobility .tile-icon { color: var(--z2); }
+</style>
+</head>
+<body>
+
+<div class="hub-header">
+  <div class="hub-title">Training Hub</div>
+  <div class="hub-sub">Good to see you.</div>
+</div>
+
+<div class="app-grid">
+  <a class="app-tile tile-spin" href="spin.html">
+    <div class="tile-icon">⚡</div>
+    <div class="tile-name">Zone 2 Spin</div>
+    <div class="tile-desc">Live HR, cadence, zones &amp; structured workouts</div>
+  </a>
+  <a class="app-tile tile-mobility" href="mobility.html">
+    <div class="tile-icon">🧘</div>
+    <div class="tile-name">Mobility Routine</div>
+    <div class="tile-desc">30-minute rest day routine for cyclists</div>
+  </a>
+</div>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(e => console.log('SW:', e));
+}
+</script>
+</body>
+</html>
