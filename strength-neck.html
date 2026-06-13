@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#0d0d0d" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+  <title>Core & Neck Routine</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0d0d;
+      --surface:  #181818;
+      --border:   #2a2a2a;
+      --accent:   #4fc3f7;   /* cool sky-blue — chosen to distinguish from the existing mobility page while staying on-brand dark */
+      --accent2:  #29b6f6;
+      --text:     #e8e8e8;
+      --muted:    #888;
+      --warn:     #ef5350;
+      --green:    #66bb6a;
+      --radius:   14px;
+      --mono:     'SF Mono', 'Fira Mono', 'Consolas', monospace;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      min-height: 100dvh;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      gap: 12px;
+    }
+    .home-btn {
+      font-size: 20px;
+      text-decoration: none;
+      line-height: 1;
+      color: var(--text);
+    }
+    .global-timer {
+      font-family: var(--mono);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+      min-width: 70px;
+      text-align: right;
+    }
+    .btn-start-all {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 8px 16px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .btn-start-all:active { opacity: 0.8; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 28px 16px 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+    .page-header h1 {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+    .page-header p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .page-header .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .tag.accent { border-color: var(--accent); color: var(--accent); }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      padding: 24px 16px 6px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+    .section-meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── EXERCISE CARD ── */
+    .exercise-card {
+      margin: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .exercise-card.active { border-color: var(--accent); }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      cursor: pointer;
+      gap: 12px;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .card-header:active { background: rgba(255,255,255,0.03); }
+
+    .card-left { flex: 1; min-width: 0; }
+    .ex-name {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .ex-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .card-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+    .duration-badge {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(79,195,247,0.1);
+      padding: 4px 9px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .chevron {
+      width: 18px;
+      height: 18px;
+      stroke: var(--muted);
+      flex-shrink: 0;
+      transition: transform 0.25s;
+    }
+    .card-body { display: none; padding: 0 16px 16px; }
+    .card-body.open { display: block; }
+    .chevron.open { transform: rotate(180deg); }
+
+    .card-body p {
+      font-size: 14px;
+      color: #bbb;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .card-body p strong { color: var(--text); }
+
+    /* ── TIMER WIDGET ── */
+    .timer-widget {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .timer-display {
+      font-family: var(--mono);
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .timer-display.warn { color: var(--warn); }
+    .timer-display.done { color: var(--green); }
+
+    .timer-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .timer-btn {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 22px;
+      cursor: pointer;
+      width: 100%;
+      letter-spacing: 0.3px;
+    }
+    .timer-btn.secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      margin-top: 8px;
+    }
+    .timer-btn:active { opacity: 0.75; }
+
+    .progress-bar {
+      width: 100%;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: width 0.5s linear;
+    }
+
+    /* ── REPS WIDGET ── */
+    .reps-widget {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .reps-label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+    }
+    .sets-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .set-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .set-dot.done { background: var(--accent); border-color: var(--accent); color: #000; }
+    .set-dot.active { border-color: var(--accent); color: var(--accent); }
+    .set-info { font-size: 14px; font-weight: 700; color: var(--text); }
+    .set-info span { color: var(--muted); font-weight: 400; font-size: 13px; }
+
+    /* ── YOUTUBE LINK ── */
+    .yt-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 8px 0 2px;
+    }
+    .yt-link:active { opacity: 0.7; }
+    .yt-icon { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ── WHY PANEL ── */
+    .why-panel {
+      background: rgba(79,195,247,0.06);
+      border: 1px solid rgba(79,195,247,0.2);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+    .why-panel .why-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .why-panel p {
+      font-size: 13px;
+      color: #aaa;
+      margin-bottom: 0;
+    }
+
+    /* ── SESSION COMPLETE ── */
+    .session-complete {
+      margin: 16px 12px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .session-complete h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .session-complete p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 6px 0;
+    }
+
+    /* ── ROUTINE TOGGLE ── */
+    .routine-toggle {
+      display: flex;
+      gap: 8px;
+      padding: 12px 12px 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .routine-toggle::-webkit-scrollbar { display: none; }
+    .rtab {
+      flex-shrink: 0;
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .rtab.active { background: var(--accent); border-color: var(--accent); color: #000; }
+    .rtab:active { opacity: 0.8; }
+
+    .routine-view { display: none; }
+    .routine-view.active { display: block; }
+
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a class="home-btn" href="https://hawrylte.github.io/cycling-spin-mobility/index.html">⌂</a>
+  <div class="global-timer" id="globalClock">20:00</div>
+  <button class="btn-start-all" id="btnStartAll">Start</button>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1>Core &amp; Neck</h1>
+  <p>Daily supplement to VO₂ Max spin training</p>
+  <div class="tags">
+    <span class="tag accent">15 – 20 min</span>
+    <span class="tag">Core strength</span>
+    <span class="tag">Tech neck fix</span>
+    <span class="tag">Cycling posture</span>
+  </div>
+</div>
+
+<!-- ROUTINE TABS -->
+<div class="routine-toggle">
+  <button class="rtab active" data-view="full">Full (20 min)</button>
+  <button class="rtab" data-view="quick">Quick (15 min)</button>
+  <button class="rtab" data-view="neck">Neck only (8 min)</button>
+</div>
+
+<!-- ════════════════════════════════
+     FULL ROUTINE VIEW
+════════════════════════════════ -->
+<div class="routine-view active" id="view-full">
+
+  <!-- SECTION 1 · NECK RESET -->
+  <div class="section-header">
+    <div class="section-label">Block 1</div>
+    <div class="section-title">Neck Reset</div>
+    <div class="section-meta">5 minutes · 3 exercises · reverse tech neck</div>
+  </div>
+
+  <!-- 1A Chin Tuck -->
+  <div class="exercise-card" data-card="1a">
+    <div class="card-header" onclick="toggleCard('1a')">
+      <div class="card-left">
+        <div class="ex-name">Chin Tuck (Cervical Retraction)</div>
+        <div class="ex-meta">2 min · 3 × 10 reps</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">2 min</div>
+        <svg class="chevron" id="chev-1a" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-1a">
+      <div class="why-panel">
+        <div class="why-label">Why this matters</div>
+        <p>Tech neck means your head has drifted forward — each inch adds ~10 lb of load on your cervical spine. The chin tuck re-trains the deep neck flexors that hold your skull directly over your spine, both on the bike and at a desk.</p>
+      </div>
+      <p><strong>How to do it:</strong> Sit or stand tall. Without tilting your chin down, gently glide your head straight back — like you're making a double chin. You should feel a mild stretch at the base of your skull and activation in the front of your neck. Hold 2 seconds, release. Keep your eyes level the whole time.</p>
+      <p><strong>Common mistake:</strong> Tilting the chin downward is not a chin tuck — that works the wrong muscles. The motion is purely horizontal: head travels straight back.</p>
+      <div class="reps-widget" id="reps-1a">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('1a',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('1a',1)">2</div>
+          <div class="set-dot" data-set="2" onclick="markSet('1a',2)">3</div>
+        </div>
+        <div class="set-info">10 reps <span>per set · 2-sec hold each</span></div>
+      </div>
+      <a class="yt-link" href="https://www.youtube.com/watch?v=wQylqaCl8Zo" target="_blank">
+        <svg class="yt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch demonstration
+      </a>
+    </div>
+  </div>
+
+  <!-- 1B Cervical Side Glide -->
+  <div class="exercise-card" data-card="1b">
+    <div class="card-header" onclick="toggleCard('1b')">
+      <div class="card-left">
+        <div class="ex-name">Cervical Side Glide</div>
+        <div class="ex-meta">2 min · 45 sec each side</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">2 min</div>
+        <svg class="chevron" id="chev-1b" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-1b">
+      <div class="why-panel">
+        <div class="why-label">Why this matters</div>
+        <p>Looking down at a screen or down at the road on a TT position creates uneven tension in the scalenes and levator scapulae. This lateral glide decompresses and re-centres the cervical joints.</p>
+      </div>
+      <p><strong>How to do it:</strong> Sit upright. Gently glide your head to the right — move it sideways like a bobblehead, keeping your nose pointing forward (not tilting). Feel a mild stretch on the left side of your neck. Hold 45 seconds. Return to centre, repeat to the left. <strong>No rotation, no tilt</strong> — purely lateral translation.</p>
+      <p><strong>If you feel tingling or pins-and-needles</strong> in your arms, reduce the range immediately and do gentle side tilts instead.</p>
+      <div class="timer-widget">
+        <div class="timer-label">HOLD · EACH SIDE</div>
+        <div class="timer-display" id="disp-1b">0:45</div>
+        <div class="progress-bar"><div class="progress-fill" id="prog-1b" style="width:100%"></div></div>
+        <button class="timer-btn" id="tbtn-1b" onclick="startTimer('1b', 45)">▶ Start Hold</button>
+        <button class="timer-btn secondary" onclick="resetTimer('1b', 45)">Reset</button>
+      </div>
+      <a class="yt-link" href="https://www.youtube.com/watch?v=HXeQWB_BBPE" target="_blank">
+        <svg class="yt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch demonstration
+      </a>
+    </div>
+  </div>
+
+  <!-- 1C Levator Scapulae Stretch -->
+  <div class="exercise-card" data-card="1c">
+    <div class="card-header" onclick="toggleCard('1c')">
+      <div class="card-left">
+        <div class="ex-name">Levator Scapulae Stretch</div>
+        <div class="ex-meta">1 min · 30 sec each side</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">1 min</div>
+        <svg class="chevron" id="chev-1c" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-1c">
+      <div class="why-panel">
+        <div class="why-label">Why this matters</div>
+        <p>The levator scapulae runs from your shoulder blade to C1–C4 and is chronically tight in cyclists and desk workers alike. Releasing it directly reduces neck pain and improves head-forward posture.</p>
+      </div>
+      <p><strong>How to do it:</strong> Sit in a chair. Anchor your right hand under your seat (to depress the shoulder). Tilt your left ear toward your left shoulder, then rotate your nose 45° downward toward your left armpit. Gently apply overpressure with your left hand on the back of your head. You should feel a pull from the right base of skull down to the right shoulder blade. Hold 30 seconds each side.</p>
+      <div class="timer-widget">
+        <div class="timer-label">HOLD · EACH SIDE</div>
+        <div class="timer-display" id="disp-1c">0:30</div>
+        <div class="progress-bar"><div class="progress-fill" id="prog-1c" style="width:100%"></div></div>
+        <button class="timer-btn" id="tbtn-1c" onclick="startTimer('1c', 30)">▶ Start Hold</button>
+        <button class="timer-btn secondary" onclick="resetTimer('1c', 30)">Reset</button>
+      </div>
+      <a class="yt-link" href="https://www.youtube.com/watch?v=G_mPGHZFvzo" target="_blank">
+        <svg class="yt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch demonstration
+      </a>
+    </div>
+  </div>
+
+  <!-- SECTION 2 · CYCLING CORE -->
+  <div class="section-header">
+    <div class="section-label">Block 2</div>
+    <div class="section-title">Cycling Core</div>
+    <div class="section-meta">10 minutes · 5 exercises · stability over crunches</div>
+  </div>
+
+  <!-- 2A Dead Bug -->
+  <div class="exercise-card" data-card="2a">
+    <div class="card-header" onclick="toggleCard('2a')">
+      <div class="card-left">
+        <div class="ex-name">Dead Bug</div>
+        <div class="ex-meta">3 min · 3 × 8 reps per side</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">3 min</div>
+        <svg class="chevron" id="chev-2a" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-2a">
+      <div class="why-panel">
+        <div class="why-label">Why this matters</div>
+        <p>Cycling demands a stable pelvis while your legs move — the dead bug trains exactly this anti-extension core control. A strong dead bug means more power transfer to the pedals and less lower-back fatigue in long rides.</p>
+      </div>
+      <p><strong>How to do it:</strong> Lie on your back. Press your lower back firmly into the floor — this is the entire foundation. Arms up to the ceiling, knees bent at 90° over your hips. <strong>Slowly lower your right arm behind your head and your left leg toward the floor simultaneously.</strong> Your lower back must not lift off the floor — if it does, reduce the range. Return to start. Alternate sides. Move at a 3-second count down, 1-second hold, 2-second return.</p>
+      <p><strong>Too hard?</strong> Move only the arm or only the leg, not both at once, until you build the coordination.</p>
+      <div class="reps-widget" id="reps-2a">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('2a',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('2a',1)">2</div>
+          <div class="set-dot" data-set="2" onclick="markSet('2a',2)">3</div>
+        </div>
+        <div class="set-info">8 reps <span>per side · rest 30 sec between sets</span></div>
+      </div>
+      <a class="yt-link" href="https://www.youtube.com/watch?v=4XLEnwUr1d8" target="_blank">
+        <svg class="yt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch demonstration
+      </a>
+    </div>
+  </div>
+
+  <!-- 2B Bird Dog -->
+  <div class="exercise-card" data-card="2b">
+    <div class="card-header" onclick="toggleCard('2b')">
+      <div class="card-left">
+        <div class="ex-name">Bird Dog</div>
+        <div class="ex-meta">2 min · 2 × 10 reps per side</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">2 min</div>
+        <svg class="chevron" id="chev-2b" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-2b">
+      <div class="why-panel">
+        <div class="why-label">Why this matters</div>
+        <p>Trains the glutes, erector spinae, and deep core together in the exact position your body holds on the bike — hip extended, spine neutral. Critical for preventing the lower-back collapse that shows up after 45+ minutes of hard intervals.</p>
+      </div>
+      <p><strong>How to do it:</strong> Start on hands and knees, wrists under shoulders, knees under hips. Brace your core lightly. <strong>Extend your right arm and left leg simultaneously</strong>, reaching long rather than high. Hold 3 seconds at the top — your spine should be parallel to the floor, no rotation, no hip hike. Draw your elbow and knee together underneath you (bonus: this adds a crunch), then extend again. Complete 10 per side, then switch.</p>
+      <div class="reps-widget" id="reps-2b">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('2b',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('2b',1)">2</div>
+        </div>
+        <div class="set-info">10 reps <span>per side</span></div>
+      </div>
+      <a class="yt-link" href="https://www.youtube.com/watch?v=wiFNA3sqjCA" target="_blank">
+        <svg class="yt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch demonstration
+      </a>
+    </div>
+  </div>
+
+  <!-- 2C Side Plank with Hip Abduction -->
+  <div class="exercise-card" data-card="2c">
+    <div class="card-header" onclick="toggleCard('2c')">
+      <div class="card-left">
+        <div class="ex-name">Side Plank + Hip Lift</div>
+        <div class="ex-meta">2 min · 30 sec each side × 2</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">2 min</div>
+        <svg class="chevron" id="chev-2c" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-2c">
+      <div class="why-panel">
+        <div class="why-label">Why this matters</div>
+        <p>Lateral core stability prevents your hips from rocking side-to-side during hard efforts — a major source of power leakage and knee tracking issues in cyclists. This is also the anti-rotation base that keeps your upper body quiet while your legs hammer.</p>
+      </div>
+      <p><strong>How to do it:</strong> Lie on your side, elbow below shoulder, feet stacked or staggered. Lift your hips so your body forms a straight line ear-to-ankle. Hold 30 seconds. <strong>Modified version:</strong> Drop your bottom knee to the floor — same benefit, far easier on the shoulder. <strong>Progressed version:</strong> Add a slow hip abduction (raise your top leg 6 inches) for 10 reps during the hold.</p>
+      <div class="timer-widget">
+        <div class="timer-label">HOLD · EACH SIDE</div>
+        <div class="timer-display" id="disp-2c">0:30</div>
+        <div class="progress-bar"><div class="progress-fill" id="prog-2c" style="width:100%"></div></div>
+        <button class="timer-btn" id="tbtn-2c" onclick="startTimer('2c', 30)">▶ Start Hold</button>
+        <button class="timer-btn secondary" onclick="resetTimer('2c', 30)">Reset</button>
+      </div>
+      <a class="yt-link" href="https://www.youtube.com/watch?v=K-CrEi0ymMg" target="_blank">
+        <svg class="yt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch demonstration
+      </a>
+    </div>
+  </div>
+
+  <!-- 2D Glute Bridge March -->
+  <div class="exercise-card" data-card="2d">
+    <div class="card-header" onclick="toggleCard('2d')">
+      <div class="card-left">
+        <div class="ex-name">Glute Bridge March</div>
+        <div class="ex-meta">2 min · 3 × 10 reps per side</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">2 min</div>
+        <svg class="chevron" id="chev-2d" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-2d">
+      <div class="why-panel">
+        <div class="why-label">Why this matters</div>
+        <p>Sitting on a spin bike for 45–60 minutes keeps your hip flexors shortened and your glutes inhibited ("gluteal amnesia"). The bridge march reactivates the glutes and reinforces pelvic stability — directly translating to more powerful, efficient pedalling at high cadence.</p>
+      </div>
+      <p><strong>How to do it:</strong> Lie on your back, knees bent, feet flat. Drive hips up into a bridge and hold that height throughout. Slowly lift one knee to 90°, pause 2 seconds, lower it, then lift the other. <strong>Your hips must not drop or rotate</strong> when you lift — that's the core challenge. If they dip, slow down and reduce the range of the march.</p>
+      <div class="reps-widget" id="reps-2d">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('2d',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('2d',1)">2</div>
+          <div class="set-dot" data-set="2" onclick="markSet('2d',2)">3</div>
+        </div>
+        <div class="set-info">10 reps <span>per side · 2-sec pause each</span></div>
+      </div>
+      <a class="yt-link" href="https://www.youtube.com/watch?v=OPqbUBISSxA" target="_blank">
+        <svg class="yt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch demonstration
+      </a>
+    </div>
+  </div>
+
+  <!-- 2E Hollow Body Hold -->
+  <div class="exercise-card" data-card="2e">
+    <div class="card-header" onclick="toggleCard('2e')">
+      <div class="card-left">
+        <div class="ex-name">Hollow Body Hold</div>
+        <div class="ex-meta">2 min · 3 × 20 sec holds</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">2 min</div>
+        <svg class="chevron" id="chev-2e" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-2e">
+      <div class="why-panel">
+        <div class="why-label">Why this matters</div>
+        <p>The hollow body is the gold-standard anterior core exercise — it trains the transverse abdominis and internal obliques to maintain a rigid, pressurised torso even when fatigued. This is what stops you from losing power by squirming on the saddle during sprint intervals.</p>
+      </div>
+      <p><strong>How to do it:</strong> Lie on your back. Press your lower back into the floor. Raise your shoulders slightly and lift your legs — start with knees bent and feet at 45° if needed. Arms reach straight overhead (or to the sides for easier version). Hold 20 seconds breathing shallowly. <strong>The moment your lower back leaves the floor, stop and rest — this is a no-compromise exercise.</strong></p>
+      <div class="timer-widget">
+        <div class="timer-label">HOLD</div>
+        <div class="timer-display" id="disp-2e">0:20</div>
+        <div class="progress-bar"><div class="progress-fill" id="prog-2e" style="width:100%"></div></div>
+        <button class="timer-btn" id="tbtn-2e" onclick="startTimer('2e', 20)">▶ Start Hold</button>
+        <button class="timer-btn secondary" onclick="resetTimer('2e', 20)">Reset</button>
+      </div>
+      <a class="yt-link" href="https://www.youtube.com/watch?v=LlDNef_Ztsc" target="_blank">
+        <svg class="yt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch demonstration
+      </a>
+    </div>
+  </div>
+
+  <!-- SECTION 3 · UPPER THORACIC -->
+  <div class="section-header">
+    <div class="section-label">Block 3</div>
+    <div class="section-title">Thoracic &amp; Shoulder Reset</div>
+    <div class="section-meta">5 minutes · 2 exercises · open the chest, free the neck</div>
+  </div>
+
+  <!-- 3A Wall Angels -->
+  <div class="exercise-card" data-card="3a">
+    <div class="card-header" onclick="toggleCard('3a')">
+      <div class="card-left">
+        <div class="ex-name">Wall Angels</div>
+        <div class="ex-meta">2 min · 2 × 10 slow reps</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">2 min</div>
+        <svg class="chevron" id="chev-3a" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-3a">
+      <div class="why-panel">
+        <div class="why-label">Why this matters</div>
+        <p>The handlebar position locks your thoracic spine in flexion and your scapulae in protraction — wall angels actively train serratus anterior, lower trapezius, and thoracic extension. Every rep directly counteracts the rounded-shoulder riding position and gives your neck more room to sit in a neutral position.</p>
+      </div>
+      <p><strong>How to do it:</strong> Stand with your back against a wall, feet ~6 cm from the baseboard. Press your lower back, upper back, and the back of your head against the wall. Place your arms in a "goalpost" position (elbows at shoulder height, backs of hands on the wall if possible). <strong>Slowly slide both arms up the wall</strong> as high as you can while keeping every contact point on the wall. Slide back down. If your lower back pops off the wall, bend your knees slightly.</p>
+      <div class="reps-widget" id="reps-3a">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('3a',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('3a',1)">2</div>
+        </div>
+        <div class="set-info">10 reps <span>slow · 3 sec up, 3 sec down</span></div>
+      </div>
+      <a class="yt-link" href="https://www.youtube.com/watch?v=8_m5lN76oVY" target="_blank">
+        <svg class="yt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch demonstration
+      </a>
+    </div>
+  </div>
+
+  <!-- 3B Prone Y-T-W -->
+  <div class="exercise-card" data-card="3b">
+    <div class="card-header" onclick="toggleCard('3b')">
+      <div class="card-left">
+        <div class="ex-name">Prone Y-T-W Raises</div>
+        <div class="ex-meta">3 min · 2 × 8 reps per shape</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">3 min</div>
+        <svg class="chevron" id="chev-3b" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-3b">
+      <div class="why-panel">
+        <div class="why-label">Why this matters</div>
+        <p>The lower and middle trapezius are chronically inhibited in cyclists and tech-neck sufferers. These fibres are essential for scapular depression and retraction — which directly decompresses the cervical spine. The Y-T-W is one of the most targeted ways to reactivate them with no equipment.</p>
+      </div>
+      <p><strong>How to do it:</strong> Lie face-down on the floor, forehead resting on a towel. Squeeze your shoulder blades lightly before every rep. <strong>Y shape:</strong> Raise both arms at a 30° angle from your head (thumbs up), hold 2 seconds, lower. <strong>T shape:</strong> Raise both arms out to the sides at shoulder height, hold 2 seconds, lower. <strong>W shape:</strong> Elbows bent 90°, raise them toward the ceiling squeezing the blades together, hold 2 seconds. 8 reps each shape = 1 set. <strong>These are tiny, effortful movements</strong> — 5 cm off the floor is correct.</p>
+      <div class="reps-widget" id="reps-3b">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('3b',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('3b',1)">2</div>
+        </div>
+        <div class="set-info">8 reps Y + 8 T + 8 W <span>per set</span></div>
+      </div>
+      <a class="yt-link" href="https://www.youtube.com/watch?v=VB5MNoPvQAI" target="_blank">
+        <svg class="yt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch demonstration
+      </a>
+    </div>
+  </div>
+
+  <!-- COMPLETE -->
+  <div class="session-complete">
+    <h3>Session complete. 🎯</h3>
+    <p>20 minutes. Your neck, core, and thoracic spine have been reset. Every rep compounds — this routine pays off most in week 3 and beyond.</p>
+  </div>
+
+</div><!-- /view-full -->
+
+<!-- ════════════════════════════════
+     QUICK ROUTINE VIEW (15 min)
+════════════════════════════════ -->
+<div class="routine-view" id="view-quick">
+
+  <div class="section-header">
+    <div class="section-label">Quick routine</div>
+    <div class="section-title">15 Min Essentials</div>
+    <div class="section-meta">Best exercises from each block when time is tight</div>
+  </div>
+
+  <div class="exercise-card" data-card="q1">
+    <div class="card-header" onclick="toggleCard('q1')">
+      <div class="card-left">
+        <div class="ex-name">Chin Tuck</div>
+        <div class="ex-meta">2 min · 3 × 10 reps</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">2 min</div>
+        <svg class="chevron" id="chev-q1" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-q1">
+      <p>Same as the Neck Reset Block. See the <strong>Full routine</strong> for full instructions.</p>
+      <div class="reps-widget" id="reps-q1">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('q1',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('q1',1)">2</div>
+          <div class="set-dot" data-set="2" onclick="markSet('q1',2)">3</div>
+        </div>
+        <div class="set-info">10 reps <span>2-sec hold</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-card" data-card="q2">
+    <div class="card-header" onclick="toggleCard('q2')">
+      <div class="card-left">
+        <div class="ex-name">Dead Bug</div>
+        <div class="ex-meta">3 min · 3 × 8 per side</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">3 min</div>
+        <svg class="chevron" id="chev-q2" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-q2">
+      <p>See <strong>Full routine → Cycling Core → Dead Bug</strong> for instructions.</p>
+      <div class="reps-widget" id="reps-q2">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('q2',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('q2',1)">2</div>
+          <div class="set-dot" data-set="2" onclick="markSet('q2',2)">3</div>
+        </div>
+        <div class="set-info">8 reps <span>per side</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-card" data-card="q3">
+    <div class="card-header" onclick="toggleCard('q3')">
+      <div class="card-left">
+        <div class="ex-name">Glute Bridge March</div>
+        <div class="ex-meta">3 min · 3 × 10 per side</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">3 min</div>
+        <svg class="chevron" id="chev-q3" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-q3">
+      <p>See <strong>Full routine → Cycling Core → Glute Bridge March</strong> for instructions.</p>
+      <div class="reps-widget" id="reps-q3">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('q3',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('q3',1)">2</div>
+          <div class="set-dot" data-set="2" onclick="markSet('q3',2)">3</div>
+        </div>
+        <div class="set-info">10 reps <span>per side</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-card" data-card="q4">
+    <div class="card-header" onclick="toggleCard('q4')">
+      <div class="card-left">
+        <div class="ex-name">Bird Dog</div>
+        <div class="ex-meta">2 min · 2 × 10 per side</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">2 min</div>
+        <svg class="chevron" id="chev-q4" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-q4">
+      <p>See <strong>Full routine → Cycling Core → Bird Dog</strong> for instructions.</p>
+      <div class="reps-widget" id="reps-q4">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('q4',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('q4',1)">2</div>
+        </div>
+        <div class="set-info">10 reps <span>per side</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-card" data-card="q5">
+    <div class="card-header" onclick="toggleCard('q5')">
+      <div class="card-left">
+        <div class="ex-name">Wall Angels</div>
+        <div class="ex-meta">3 min · 2 × 10 reps</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">3 min</div>
+        <svg class="chevron" id="chev-q5" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-q5">
+      <p>See <strong>Full routine → Thoracic &amp; Shoulder Reset → Wall Angels</strong> for instructions.</p>
+      <div class="reps-widget" id="reps-q5">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('q5',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('q5',1)">2</div>
+        </div>
+        <div class="set-info">10 reps <span>slow</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-card" data-card="q6">
+    <div class="card-header" onclick="toggleCard('q6')">
+      <div class="card-left">
+        <div class="ex-name">Levator Scapulae Stretch</div>
+        <div class="ex-meta">2 min · 30 sec each side</div>
+      </div>
+      <div class="card-right">
+        <div class="duration-badge">2 min</div>
+        <svg class="chevron" id="chev-q6" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="card-body" id="body-q6">
+      <p>See <strong>Full routine → Neck Reset → Levator Scapulae Stretch</strong> for instructions.</p>
+      <div class="timer-widget">
+        <div class="timer-label">HOLD · EACH SIDE</div>
+        <div class="timer-display" id="disp-q6">0:30</div>
+        <div class="progress-bar"><div class="progress-fill" id="prog-q6" style="width:100%"></div></div>
+        <button class="timer-btn" id="tbtn-q6" onclick="startTimer('q6', 30)">▶ Start Hold</button>
+        <button class="timer-btn secondary" onclick="resetTimer('q6', 30)">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="session-complete">
+    <h3>Done. 15 minutes well spent.</h3>
+    <p>On days you have more time, switch to the Full routine for the complete programme.</p>
+  </div>
+
+</div><!-- /view-quick -->
+
+<!-- ════════════════════════════════
+     NECK ONLY VIEW (8 min)
+════════════════════════════════ -->
+<div class="routine-view" id="view-neck">
+
+  <div class="section-header">
+    <div class="section-label">Neck only</div>
+    <div class="section-title">8 Min Neck Reset</div>
+    <div class="section-meta">Do this at your desk or right after the spin bike</div>
+  </div>
+
+  <div class="exercise-card" data-card="n1">
+    <div class="card-header" onclick="toggleCard('n1')">
+      <div class="card-left"><div class="ex-name">Chin Tuck</div><div class="ex-meta">3 × 10 reps</div></div>
+      <div class="card-right"><div class="duration-badge">2 min</div><svg class="chevron" id="chev-n1" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="card-body" id="body-n1">
+      <p>Head glides straight back — horizontal motion only. 2-sec hold each rep. See Full routine for full instructions.</p>
+      <div class="reps-widget" id="reps-n1">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('n1',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('n1',1)">2</div>
+          <div class="set-dot" data-set="2" onclick="markSet('n1',2)">3</div>
+        </div>
+        <div class="set-info">10 reps</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-card" data-card="n2">
+    <div class="card-header" onclick="toggleCard('n2')">
+      <div class="card-left"><div class="ex-name">Cervical Side Glide</div><div class="ex-meta">45 sec each side</div></div>
+      <div class="card-right"><div class="duration-badge">2 min</div><svg class="chevron" id="chev-n2" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="card-body" id="body-n2">
+      <p>Pure lateral translation — nose stays forward, no tilt or rotation. See Full routine for full instructions.</p>
+      <div class="timer-widget">
+        <div class="timer-label">HOLD · EACH SIDE</div>
+        <div class="timer-display" id="disp-n2">0:45</div>
+        <div class="progress-bar"><div class="progress-fill" id="prog-n2" style="width:100%"></div></div>
+        <button class="timer-btn" id="tbtn-n2" onclick="startTimer('n2', 45)">▶ Start Hold</button>
+        <button class="timer-btn secondary" onclick="resetTimer('n2', 45)">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-card" data-card="n3">
+    <div class="card-header" onclick="toggleCard('n3')">
+      <div class="card-left"><div class="ex-name">Levator Scapulae Stretch</div><div class="ex-meta">30 sec each side</div></div>
+      <div class="card-right"><div class="duration-badge">1 min</div><svg class="chevron" id="chev-n3" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="card-body" id="body-n3">
+      <p>Tilt ear to shoulder, then rotate nose 45° toward armpit. Anchor the opposite hand under your chair. See Full routine for full instructions.</p>
+      <div class="timer-widget">
+        <div class="timer-label">HOLD · EACH SIDE</div>
+        <div class="timer-display" id="disp-n3">0:30</div>
+        <div class="progress-bar"><div class="progress-fill" id="prog-n3" style="width:100%"></div></div>
+        <button class="timer-btn" id="tbtn-n3" onclick="startTimer('n3', 30)">▶ Start Hold</button>
+        <button class="timer-btn secondary" onclick="resetTimer('n3', 30)">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="exercise-card" data-card="n4">
+    <div class="card-header" onclick="toggleCard('n4')">
+      <div class="card-left"><div class="ex-name">Wall Angels</div><div class="ex-meta">2 × 10 reps</div></div>
+      <div class="card-right"><div class="duration-badge">2 min</div><svg class="chevron" id="chev-n4" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </div>
+    <div class="card-body" id="body-n4">
+      <p>Back, head, elbows, and wrists all touching the wall. Slide arms up as high as you can while maintaining wall contact. Decompresses the neck by activating lower trapezius. See Full routine for full instructions.</p>
+      <div class="reps-widget" id="reps-n4">
+        <div class="reps-label">Sets</div>
+        <div class="sets-row">
+          <div class="set-dot active" data-set="0" onclick="markSet('n4',0)">1</div>
+          <div class="set-dot" data-set="1" onclick="markSet('n4',1)">2</div>
+        </div>
+        <div class="set-info">10 reps</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="session-complete">
+    <h3>Neck reset complete.</h3>
+    <p>Do this 2× a day if tech neck is significant — morning and after your work session are ideal windows.</p>
+  </div>
+
+</div><!-- /view-neck -->
+
+<script>
+  // ── GLOBAL TIMER ──
+  let globalSecs = 20 * 60;
+  let globalRunning = false;
+  let globalInterval = null;
+
+  const globalClock = document.getElementById('globalClock');
+  const btnStartAll = document.getElementById('btnStartAll');
+
+  function fmtTime(s) {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return m + ':' + String(sec).padStart(2,'0');
+  }
+
+  btnStartAll.addEventListener('click', () => {
+    if (!globalRunning) {
+      globalRunning = true;
+      btnStartAll.textContent = 'Pause';
+      globalInterval = setInterval(() => {
+        if (globalSecs > 0) {
+          globalSecs--;
+          globalClock.textContent = fmtTime(globalSecs);
+        } else {
+          clearInterval(globalInterval);
+          globalRunning = false;
+          btnStartAll.textContent = 'Done';
+        }
+      }, 1000);
+    } else {
+      clearInterval(globalInterval);
+      globalRunning = false;
+      btnStartAll.textContent = 'Resume';
+    }
+  });
+
+  // ── EXERCISE CARD TOGGLE ──
+  function toggleCard(id) {
+    const body = document.getElementById('body-' + id);
+    const chev = document.getElementById('chev-' + id);
+    const card = document.querySelector('[data-card="' + id + '"]');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    chev.classList.toggle('open', !isOpen);
+    card.classList.toggle('active', !isOpen);
+  }
+
+  // ── HOLD TIMERS ──
+  const timerState = {};
+
+  function startTimer(id, duration) {
+    if (timerState[id]?.running) return;
+    const disp = document.getElementById('disp-' + id);
+    const prog = document.getElementById('prog-' + id);
+    const btn  = document.getElementById('tbtn-' + id);
+    let remaining = timerState[id]?.remaining ?? duration;
+    timerState[id] = { running: true, remaining };
+
+    btn.textContent = 'Running…';
+
+    const iv = setInterval(() => {
+      remaining--;
+      timerState[id].remaining = remaining;
+      disp.textContent = fmtTime(remaining);
+      prog.style.width = (remaining / duration * 100) + '%';
+
+      if (remaining <= 5) disp.classList.add('warn');
+      if (remaining <= 0) {
+        clearInterval(iv);
+        timerState[id].running = false;
+        timerState[id].remaining = 0;
+        disp.textContent = '✓';
+        disp.classList.remove('warn');
+        disp.classList.add('done');
+        btn.textContent = 'Complete ✓';
+        prog.style.width = '0%';
+      }
+    }, 1000);
+
+    timerState[id].interval = iv;
+  }
+
+  function resetTimer(id, duration) {
+    if (timerState[id]?.interval) clearInterval(timerState[id].interval);
+    timerState[id] = { running: false, remaining: duration };
+    const disp = document.getElementById('disp-' + id);
+    const prog = document.getElementById('prog-' + id);
+    const btn  = document.getElementById('tbtn-' + id);
+    disp.textContent = fmtTime(duration);
+    disp.classList.remove('warn','done');
+    prog.style.width = '100%';
+    btn.textContent = '▶ Start Hold';
+  }
+
+  // ── SET TRACKER ──
+  function markSet(cardId, setIndex) {
+    const dots = document.querySelectorAll('#reps-' + cardId + ' .set-dot');
+    dots.forEach((d, i) => {
+      d.classList.toggle('done', i <= setIndex);
+      d.classList.toggle('active', i === setIndex + 1);
+    });
+  }
+
+  // ── ROUTINE TABS ──
+  document.querySelectorAll('.rtab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.rtab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.routine-view').forEach(v => v.classList.remove('active'));
+      btn.classList.add('active');
+      const view = btn.dataset.view;
+      document.getElementById('view-' + view).classList.add('active');
+      // update global timer
+      const times = { full: 20*60, quick: 15*60, neck: 8*60 };
+      globalSecs = times[view];
+      globalClock.textContent = fmtTime(globalSecs);
+      if (globalRunning) { clearInterval(globalInterval); globalRunning = false; btnStartAll.textContent = 'Start'; }
+    });
+  });
+</script>
+</body>
+</html>
