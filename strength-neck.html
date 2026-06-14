@@ -15,8 +15,8 @@
       --bg:       #0d0d0d;
       --surface:  #181818;
       --border:   #2a2a2a;
-      --accent:   #00BFA5;   /* cool sky-blue — chosen to distinguish from the existing mobility page while staying on-brand dark */
-      --accent2:  #29b6f6;
+      --accent:   #00BFA5;
+      --accent2:  #00897B;
       --text:     #e8e8e8;
       --muted:    #888;
       --warn:     #ef5350;
@@ -75,6 +75,21 @@
       flex-shrink: 0;
     }
     .btn-start-all:active { opacity: 0.8; }
+    .btn-screen {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-screen.on { border-color: var(--accent); color: var(--accent); }
+    .btn-screen:active { opacity: 0.75; }
 
     /* ── PAGE HEADER ── */
     .page-header {
@@ -320,8 +335,8 @@
 
     /* ── WHY PANEL ── */
     .why-panel {
-      background: rgba(79,195,247,0.06);
-      border: 1px solid rgba(79,195,247,0.2);
+      background: rgba(0,191,165,0.06);
+      border: 1px solid rgba(0,191,165,0.2);
       border-radius: 10px;
       padding: 12px 14px;
       margin-bottom: 12px;
@@ -402,6 +417,7 @@
 <div class="topbar">
   <a class="home-btn" href="https://hawrylte.github.io/cycling-spin-mobility/index.html">⌂</a>
   <div class="global-timer" id="globalClock">20:00</div>
+  <button class="btn-screen" id="btnScreen">Screen On</button>
   <button class="btn-start-all" id="btnStartAll">Start</button>
 </div>
 
@@ -1145,6 +1161,44 @@
       d.classList.toggle('active', i === setIndex + 1);
     });
   }
+
+  // ── SCREEN WAKE LOCK ──
+  let wakeLock = null;
+  const btnScreen = document.getElementById('btnScreen');
+
+  async function requestWakeLock() {
+    try {
+      wakeLock = await navigator.wakeLock.request('screen');
+      btnScreen.textContent = 'Screen On';
+      btnScreen.classList.add('on');
+      wakeLock.addEventListener('release', () => {
+        btnScreen.textContent = 'Screen On';
+        btnScreen.classList.remove('on');
+        wakeLock = null;
+      });
+    } catch (e) {
+      btnScreen.textContent = 'Screen On';
+      btnScreen.classList.remove('on');
+    }
+  }
+
+  btnScreen.addEventListener('click', async () => {
+    if (wakeLock) {
+      await wakeLock.release();
+      wakeLock = null;
+      btnScreen.textContent = 'Screen On';
+      btnScreen.classList.remove('on');
+    } else {
+      await requestWakeLock();
+    }
+  });
+
+  // Re-acquire wake lock if page becomes visible again
+  document.addEventListener('visibilitychange', async () => {
+    if (document.visibilityState === 'visible' && wakeLock === null && btnScreen.classList.contains('on')) {
+      await requestWakeLock();
+    }
+  });
 
   // ── ROUTINE TABS ──
   document.querySelectorAll('.rtab').forEach(btn => {
