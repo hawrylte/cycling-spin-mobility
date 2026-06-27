@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0d0d0d">
+<title>Kettlebell Power</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0d0d;
+    --panel:#161513;
+    --panel-2:#1c1a17;
+    --line:#2a2724;
+    --iron:#8a8580;
+    --ash:#6f6a64;
+    --paper:#ece7df;
+    --ember:#00BFA5;
+    --ember-dim:#00bfa52e;
+    --ember-soft:#2ed8c0;
+    --good:#7fb069;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(900px 500px at 80% -10%, #0a1d1a 0%, transparent 60%),
+      var(--bg);
+    color:var(--paper);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:60px;
+  }
+  h1,h2,h3,.display{
+    font-family:'Oswald',system-ui,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+  a{color:var(--ember-soft);text-decoration:none;}
+  .wrap{max-width:640px;margin:0 auto;padding:0 18px;}
+
+  /* ---- top bar ---- */
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 18px;border-bottom:1px solid var(--line);
+    position:sticky;top:0;background:rgba(13,13,13,0.92);
+    backdrop-filter:blur(6px);z-index:20;
+  }
+  .home{font-size:20px;color:var(--iron);padding:4px 8px;}
+  .clock{
+    font-family:'Oswald',monospace;font-size:26px;font-weight:600;
+    letter-spacing:0.04em;color:var(--paper);
+    min-width:78px;text-align:center;
+  }
+  .topctrls{display:flex;gap:8px;align-items:center;}
+  .pillbtn{
+    background:var(--panel-2);border:1px solid var(--line);color:var(--iron);
+    font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;
+    padding:8px 12px;border-radius:20px;cursor:pointer;transition:.15s;
+  }
+  .pillbtn.on{background:var(--ember-dim);border-color:var(--ember);color:var(--ember-soft);}
+  .startbtn{
+    background:var(--ember);color:#03201b;border:none;font-weight:700;
+    font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:0.04em;
+    font-size:13px;padding:10px 18px;border-radius:20px;cursor:pointer;
+  }
+  .startbtn.running{background:var(--panel-2);color:var(--ember-soft);border:1px solid var(--ember);}
+
+  /* ---- hero ---- */
+  .hero{padding:26px 0 10px;}
+  .eyebrow{
+    color:var(--ember-soft);font-size:11px;font-weight:700;letter-spacing:0.14em;
+    text-transform:uppercase;margin-bottom:8px;
+  }
+  h1.title{font-size:38px;line-height:1;margin:0 0 8px;color:var(--paper);}
+  .sub{color:var(--iron);font-size:15px;line-height:1.5;margin:0 0 16px;max-width:480px;}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .badge{
+    border:1px solid var(--line);color:var(--ash);font-size:11.5px;
+    padding:6px 11px;border-radius:14px;letter-spacing:0.02em;
+  }
+
+  /* ---- intro note ---- */
+  .note{
+    background:linear-gradient(180deg,#10201d,#0f1917);
+    border:1px solid #1d3733;border-left:3px solid var(--ember);
+    border-radius:8px;padding:14px 16px;margin-bottom:22px;
+    font-size:13.5px;line-height:1.55;color:#d8cdbf;
+  }
+  .note b{color:var(--ember-soft);}
+
+  /* ---- mode tabs ---- */
+  .tabs{display:flex;gap:8px;margin-bottom:22px;}
+  .tab{
+    flex:1;text-align:center;padding:11px 0;border-radius:8px;
+    border:1px solid var(--line);background:var(--panel);
+    color:var(--ash);font-family:'Oswald',sans-serif;font-size:13px;
+    letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;
+  }
+  .tab.active{background:var(--ember-dim);border-color:var(--ember);color:var(--ember-soft);}
+
+  /* ---- blocks ---- */
+  .block{margin-bottom:30px;}
+  .block-head{margin-bottom:12px;}
+  .block-num{
+    color:var(--ember-soft);font-size:11px;font-weight:700;letter-spacing:0.12em;
+    text-transform:uppercase;
+  }
+  .block-title{font-size:21px;margin:4px 0 4px;color:var(--paper);}
+  .block-meta{color:var(--ash);font-size:12.5px;}
+
+  .ex{
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px;margin-bottom:14px;
+  }
+  .ex-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .ex-name{font-family:'Oswald',sans-serif;font-size:19px;color:var(--paper);text-transform:none;letter-spacing:0;}
+  .ex-time{
+    font-size:11px;color:var(--ember-soft);border:1px solid var(--ember-dim);
+    padding:4px 9px;border-radius:12px;white-space:nowrap;margin-top:2px;
+  }
+  .ex-meta{color:var(--ash);font-size:12.5px;margin:4px 0 12px;}
+
+  .why{
+    background:var(--panel-2);border-radius:8px;padding:11px 13px;margin-bottom:10px;
+    font-size:13px;line-height:1.55;color:#c9c2b6;
+  }
+  .why .lbl{color:var(--ember-soft);font-weight:700;font-size:11px;letter-spacing:0.06em;
+    text-transform:uppercase;display:block;margin-bottom:4px;}
+  .how{font-size:13.5px;line-height:1.6;color:#d8d2c8;margin-bottom:10px;}
+  .how b{color:var(--paper);}
+  .mistake{
+    font-size:12.5px;line-height:1.5;color:#a9c9c3;border-left:2px solid var(--ember);
+    padding-left:10px;margin-bottom:14px;
+  }
+  .mistake b{color:var(--ember-soft);}
+
+  /* sets control */
+  .ctrl-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .setlabel{font-size:11px;color:var(--ash);letter-spacing:0.08em;text-transform:uppercase;}
+  .sets{display:flex;gap:6px;}
+  .setbtn{
+    width:34px;height:34px;border-radius:50%;border:1px solid var(--line);
+    background:var(--panel-2);color:var(--iron);font-weight:700;font-size:14px;
+    cursor:pointer;
+  }
+  .setbtn.done{background:var(--ember);border-color:var(--ember);color:#03201b;}
+
+  /* hold timer */
+  .hold{display:flex;align-items:center;gap:12px;}
+  .holddisplay{
+    font-family:'Oswald',monospace;font-size:22px;color:var(--paper);min-width:64px;
+  }
+  .holdbtn{
+    background:var(--ember-dim);border:1px solid var(--ember);color:var(--ember-soft);
+    font-size:12px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
+    padding:8px 14px;border-radius:18px;cursor:pointer;
+  }
+  .resetbtn{
+    background:none;border:1px solid var(--line);color:var(--ash);
+    font-size:12px;padding:8px 12px;border-radius:18px;cursor:pointer;
+  }
+
+  .watch{display:inline-block;margin-top:12px;font-size:12.5px;color:var(--ember-soft);border-bottom:1px solid var(--ember-dim);}
+
+  .done-card{
+    text-align:center;padding:40px 20px;color:var(--ash);
+  }
+  .done-card .display{font-size:22px;color:var(--paper);margin-bottom:8px;}
+
+  @media (prefers-reduced-motion:no-preference){
+    .ex{transition:transform .15s;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="home" href="https://hawrylte.github.io/cycling-spin-mobility/" aria-label="Back to Training Hub">⌂</a>
+  <div class="clock" id="clock">22:00</div>
+  <div class="topctrls">
+    <button class="pillbtn" id="screenBtn">Screen On</button>
+    <button class="startbtn" id="startBtn">Start</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Kettlebell Power</div>
+    <h1 class="title">Forge Day</h1>
+    <p class="sub">Off-bike supplement on Tue / Thu / Sat — the rest days between your Mon / Wed / Fri (+ occasional Sun) Zone&nbsp;2 rides. Hip-hinge power, posture, and single-leg symmetry that pay off now and matter even more once Phase 2 brings structured intervals.</p>
+    <div class="badges">
+      <span class="badge">18–22 min</span>
+      <span class="badge">Posterior-chain power</span>
+      <span class="badge">Cycling posture</span>
+      <span class="badge">Pedal symmetry</span>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>When to do this:</b> Tue / Thu / Sat sit between your Mon / Wed / Fri (+ occasional Sun) rides — good spacing to add strength without compounding ride fatigue on the same day. Keep loads moderate throughout: today's job is power, position, and symmetry — not maximal strength, and not extra stress layered on top of your current calorie deficit. No special fueling needed beyond your normal hydration; your post-ride snack rule still only applies on ride days. Once Phase 2 adds structured intervals, this same routine and schedule carries over directly.
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-mode="full">Full (22 min)</div>
+    <div class="tab" data-mode="quick">Quick (12 min)</div>
+  </div>
+
+  <div id="blocks"></div>
+
+  <div class="done-card" id="doneCard" style="display:none;">
+    <div class="display">Forged. 💪</div>
+    Hip power, posture, and pedal symmetry — reset for the next interval session. Drink some water.
+  </div>
+</div>
+
+<script>
+/* ---------------- DATA ---------------- */
+const EXERCISES = {
+  swing: {
+    name:'Two-Arm Kettlebell Swing', time:'3 min', meta:'4 sets × 12 reps · rest 30 sec',
+    why:'The swing is an explosive hip hinge — fast, high-force hip extension that pure Zone 2 spinning never trains, since steady-state riding stays sub-maximal. It builds posterior-chain power now and sets up the standing, out-of-saddle efforts Phase 2 intervals will demand, all without the joint stress of a heavy squat or deadlift.',
+    how:'Stand with feet shoulder-width, kettlebell on the floor ~12in in front. Hinge at the hips to grip it, hike it back like a football snap, then snap your hips forward to send it to chest height. Arms stay loose — they\'re a rope, not the engine. Let gravity bring it back down into the next hike.',
+    mistake:'Squatting the swing turns it into an up-and-down lift instead of an explosive hinge — drop your hips back, not down, and keep weight in your heels.',
+    type:'sets', setsCount:4,
+    video:'https://www.youtube.com/watch?v=1Qi0NQW89Oc'
+  },
+  sld: {
+    name:'Single-Leg Deadlift', time:'3 min', meta:'2 sets × 8 reps per leg',
+    why:'Pedaling locks you into one fixed plane, and small left-right strength gaps go unnoticed there — until fatigue exposes them. This unilateral hinge builds balance and posterior-chain strength independently on each side, the most direct fix for asymmetric pedal force.',
+    how:'Hold a kettlebell in the hand opposite your stance leg. Lift the other foot, unlock the knee, and hinge forward at the hip while that leg reaches straight back. Lower until your chest is near parallel to the floor, then drive back up through the standing heel. Start on your weaker leg each set.',
+    mistake:'Dropping the chest instead of hinging the hip rounds the back — reach the rear leg back and let the torso tilt forward as one piece.',
+    type:'sets', setsCount:2, setsLabel:'per leg',
+    video:'https://www.youtube.com/watch?v=o0rblOFkuho'
+  },
+  row: {
+    name:'Single-Arm Row', time:'3 min', meta:'3 sets × 10 reps per side',
+    why:'Hours in the drops round your shoulders forward. The single-arm row directly trains the lats and mid-back that pull you back out of that position, giving you a stronger, more stable platform to hold an aero posture deep into a hard interval.',
+    how:'Hinge at the hips with a flat back, kettlebell hanging in one hand. Row the bell straight up to your ribs, driving the elbow back and squeezing the shoulder blade down and in. Lower under control — don\'t let it drop.',
+    mistake:'Jerking the bell up with the bicep skips the back entirely — initiate the pull from the shoulder blade, not the arm.',
+    type:'sets', setsCount:3, setsLabel:'per side',
+    video:'https://www.youtube.com/watch?v=l5qelXL5nfs'
+  },
+  halo: {
+    name:'Kettlebell Halo', time:'3 min', meta:'2 sets × 8 reps each direction',
+    why:'The riding position locks your thoracic spine in flexion. The halo circles the bell around your head to actively mobilize the shoulders and upper back — the opposite motion of gripping a handlebar — and it also opens the rib cage for fuller breathing under load.',
+    how:'Hold the kettlebell upside-down by the horns at chest height. Circle it around your head, staying close to your neck, flipping it as it passes behind your skull. Complete the circle in front and reverse direction after each set.',
+    mistake:'Letting the bell drift away from your head turns this into a shoulder press instead of a mobility drill — keep it tight to your skull the whole way around.',
+    type:'sets', setsCount:2, setsLabel:'per direction',
+    video:'https://www.youtube.com/watch?v=z8f3M4xImto'
+  },
+  ohp: {
+    name:'Single-Arm Overhead Press', time:'3 min', meta:'2 sets × 8 reps per arm',
+    why:'Cyclists rarely train anything overhead, leaving the shoulders weak in a range the bike never uses — until you stand and brace hard, which becomes more frequent once Phase 2 adds standing intervals. This builds that missing overhead stability and full-body bracing ahead of time.',
+    how:'Clean the bell to your shoulder in the rack position, forearm vertical. Brace your core and glutes, then press straight up until your bicep is by your ear, letting your wrist rotate so your palm faces forward at the top. Pull it back down with control.',
+    mistake:'Arching the lower back to launch the weight up is a mobility compensation — if you can\'t press without arching, drop the load and work the position first.',
+    type:'sets', setsCount:2, setsLabel:'per arm',
+    video:'https://www.youtube.com/watch?v=gjr-QAdsq4o'
+  },
+  goblet: {
+    name:'Goblet Squat', time:'3 min', meta:'3 sets × 10 reps',
+    why:'A front-loaded, bilateral squat builds quad and glute strength that complements your bike-specific power without the spinal load of a back squat — useful off-bike leg strength that carries over to grinding low-cadence efforts.',
+    how:'Hold the kettlebell by the horns at chest height, elbows tucked. Push your hips back and sit down between your heels, keeping your chest up and weight rooted through your heels. Go to at least thigh-parallel, then drive back up.',
+    mistake:'Letting the knees cave inward as you stand loses force through the hips — actively push the knees out over your toes on the way up.',
+    type:'sets', setsCount:3,
+    video:'https://www.youtube.com/watch?v=aNDUbH_Uv4g'
+  },
+  suitcase: {
+    name:'Suitcase Carry', time:'2 min', meta:'2 holds × 30 sec per side',
+    why:'A kettlebell hanging on one side tries to tip your torso sideways — the same rocking that leaks power any time you\'re out of the saddle pushing hard, whether that\'s a hill on a Zone 2 ride today or a standing interval later in the plan. This carry trains your core to resist that lateral pull instead.',
+    how:'Deadlift the kettlebell to stand, holding it at your side like a suitcase. Walk with short, controlled steps, keeping your shoulders level and ribs stacked over your pelvis — don\'t lean away from the weight.',
+    mistake:'Leaning your torso away from the bell defeats the exercise — you should look symmetrical from the front the entire walk.',
+    type:'hold', holdSeconds:30, holdLabel:'EACH SIDE',
+    video:'https://www.youtube.com/watch?v=SXf6ePnQMJ8'
+  },
+  pullthrough: {
+    name:'Plank Pull-Through', time:'2 min', meta:'2 sets × 10 reps per side',
+    why:'This is the suitcase carry\'s opposite number for rotation instead of side-bend — both are the kind of energy leak that shows up on the bike as wasted lateral motion when you\'re sprinting or grinding out of the saddle.',
+    how:'Set up in a high plank, feet outside your shoulders, kettlebell just outside one hand. Reach the opposite hand under your body to grab the bell and pull it through to the other side, keeping your hips square and still the entire time.',
+    mistake:'Letting the hips rock side to side as you pull defeats the point — think "plank first, pull second," and slow down until they stop moving.',
+    type:'sets', setsCount:2, setsLabel:'per side',
+    video:'https://www.youtube.com/watch?v=FpOHfYj6zWQ'
+  }
+};
+
+const BLOCKS = {
+  full:[
+    {num:'Block 1', title:'Hip Power & Posterior Chain', desc:'6 minutes · 2 exercises · explosive hinge', mins:6, items:['swing','sld']},
+    {num:'Block 2', title:'Upper Body & Cycling Posture', desc:'9 minutes · 3 exercises · undo the handlebars', mins:9, items:['row','halo','ohp']},
+    {num:'Block 3', title:'Core & Stability', desc:'7 minutes · 3 exercises · stop the power leaks', mins:7, items:['goblet','suitcase','pullthrough']}
+  ],
+  quick:[
+    {num:'Quick Set', title:'12-Minute Essentials', desc:'12 minutes · 4 exercises · one move per quality', mins:12, items:['swing','row','goblet','suitcase']}
+  ]
+};
+
+/* ---------------- RENDER ---------------- */
+const blocksEl = document.getElementById('blocks');
+let mode = 'full';
+let totalSeconds = 22*60;
+
+function renderBlocks(){
+  blocksEl.innerHTML = '';
+  let total = 0;
+  BLOCKS[mode].forEach(block=>{
+    total += block.mins;
+    const b = document.createElement('div');
+    b.className = 'block';
+    b.innerHTML = `
+      <div class="block-head">
+        <div class="block-num">${block.num}</div>
+        <h2 class="block-title">${block.title}</h2>
+        <div class="block-meta">${block.desc}</div>
+      </div>
+    `;
+    block.items.forEach(key=>{
+      b.appendChild(renderExercise(key));
+    });
+    blocksEl.appendChild(b);
+  });
+  totalSeconds = total*60;
+  updateClockDisplay(totalSeconds);
+}
+
+function renderExercise(key){
+  const ex = EXERCISES[key];
+  const card = document.createElement('div');
+  card.className = 'ex';
+
+  let controlsHTML = '';
+  if(ex.type === 'sets'){
+    let dots = '';
+    for(let i=1;i<=ex.setsCount;i++){
+      dots += `<button class="setbtn" data-key="${key}" data-i="${i}">${i}</button>`;
+    }
+    controlsHTML = `
+      <div class="ctrl-row">
+        <span class="setlabel">Sets${ex.setsLabel ? ' · '+ex.setsLabel : ''}</span>
+        <div class="sets">${dots}</div>
+      </div>`;
+  } else if(ex.type === 'hold'){
+    controlsHTML = `
+      <div class="ctrl-row">
+        <span class="setlabel">Hold${ex.holdLabel ? ' · '+ex.holdLabel : ''}</span>
+        <div class="hold">
+          <div class="holddisplay" id="hold-${key}">0:${String(ex.holdSeconds).padStart(2,'0')}</div>
+          <button class="holdbtn" data-key="${key}">▶ Start</button>
+          <button class="resetbtn" data-key="${key}-reset">Reset</button>
+        </div>
+      </div>`;
+  }
+
+  card.innerHTML = `
+    <div class="ex-top">
+      <div class="ex-name">${ex.name}</div>
+      <div class="ex-time">${ex.time}</div>
+    </div>
+    <div class="ex-meta">${ex.meta}</div>
+    <div class="why"><span class="lbl">Why this matters</span>${ex.why}</div>
+    <div class="how">${ex.how}</div>
+    <div class="mistake"><b>Common mistake:</b> ${ex.mistake}</div>
+    ${controlsHTML}
+    <a class="watch" href="${ex.video}" target="_blank" rel="noopener">Watch demonstration ↗</a>
+  `;
+
+  // wire set buttons
+  card.querySelectorAll('.setbtn').forEach(btn=>{
+    btn.addEventListener('click', ()=> btn.classList.toggle('done'));
+  });
+
+  // wire hold timer
+  if(ex.type === 'hold'){
+    let remaining = ex.holdSeconds;
+    let interval = null;
+    const display = card.querySelector(`#hold-${key}`);
+    const startBtn = card.querySelector(`[data-key="${key}"].holdbtn`);
+    const resetBtn = card.querySelector(`[data-key="${key}-reset"]`);
+
+    function paint(){
+      const m = Math.floor(remaining/60), s = remaining%60;
+      display.textContent = `${m}:${String(s).padStart(2,'0')}`;
+    }
+    startBtn.addEventListener('click', ()=>{
+      if(interval) return;
+      startBtn.textContent = '⏸ Running';
+      interval = setInterval(()=>{
+        remaining--;
+        if(remaining <= 0){
+          clearInterval(interval); interval=null;
+          remaining = 0; paint();
+          startBtn.textContent = '▶ Start';
+        } else paint();
+      },1000);
+    });
+    resetBtn.addEventListener('click', ()=>{
+      clearInterval(interval); interval=null;
+      remaining = ex.holdSeconds; paint();
+      startBtn.textContent = '▶ Start';
+    });
+  }
+
+  return card;
+}
+
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    mode = tab.dataset.mode;
+    pauseMainTimer();
+    renderBlocks();
+  });
+});
+
+/* ---------------- MAIN COUNTDOWN ---------------- */
+const clockEl = document.getElementById('clock');
+const startBtn = document.getElementById('startBtn');
+let mainInterval = null;
+let secondsLeft = totalSeconds;
+let running = false;
+
+function updateClockDisplay(seconds){
+  secondsLeft = seconds;
+  const m = Math.floor(seconds/60), s = seconds%60;
+  clockEl.textContent = `${m}:${String(s).padStart(2,'0')}`;
+}
+
+function pauseMainTimer(){
+  clearInterval(mainInterval); mainInterval = null;
+  running = false;
+  startBtn.textContent = 'Start';
+  startBtn.classList.remove('running');
+}
+
+startBtn.addEventListener('click', ()=>{
+  if(running){
+    pauseMainTimer();
+    return;
+  }
+  running = true;
+  startBtn.textContent = 'Pause';
+  startBtn.classList.add('running');
+  if(secondsLeft <= 0) secondsLeft = totalSeconds;
+  mainInterval = setInterval(()=>{
+    secondsLeft--;
+    if(secondsLeft <= 0){
+      clearInterval(mainInterval); mainInterval = null;
+      running = false;
+      secondsLeft = 0;
+      updateClockDisplay(0);
+      startBtn.textContent = 'Start';
+      startBtn.classList.remove('running');
+      document.getElementById('doneCard').style.display = 'block';
+      return;
+    }
+    updateClockDisplay(secondsLeft);
+  },1000);
+});
+
+/* ---------------- SCREEN WAKE LOCK ---------------- */
+const screenBtn = document.getElementById('screenBtn');
+let wakeLock = null;
+screenBtn.addEventListener('click', async ()=>{
+  if(wakeLock){
+    try{ await wakeLock.release(); }catch(e){}
+    wakeLock = null;
+    screenBtn.classList.remove('on');
+    screenBtn.textContent = 'Screen On';
+    return;
+  }
+  try{
+    wakeLock = await navigator.wakeLock.request('screen');
+    screenBtn.classList.add('on');
+    screenBtn.textContent = 'Screen Locked';
+    wakeLock.addEventListener('release', ()=>{
+      screenBtn.classList.remove('on');
+      screenBtn.textContent = 'Screen On';
+      wakeLock = null;
+    });
+  }catch(e){
+    screenBtn.textContent = 'Unsupported';
+    setTimeout(()=> screenBtn.textContent = 'Screen On', 1500);
+  }
+});
+
+renderBlocks();
+</script>
+</body>
+</html>
