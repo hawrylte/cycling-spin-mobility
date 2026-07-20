@@ -1,6 +1,129 @@
 {
-  "_comment": "Phase 2 (Weeks 9-16) additions. Merge these into the 'workouts' array in your existing workouts.json, alongside 'defaults' and your Week 7 entry. IMPORTANT: also add a \"weeks\": [7] field to your existing 'Week 7 Intervals' workout object so it shows up correctly under the new week filter in spin.html \u2014 without it, that workout will just always show under every filter (harmless, but inconsistent).",
+  "defaults": {
+    "cadence_min": 80,
+    "cadence_max": 90
+  },
   "workouts": [
+    {
+      "name": "Zone 2 Ride",
+      "type": "timed",
+      "phases": [
+        {
+          "name": "Ride",
+          "duration": 1800,
+          "zone": 2,
+          "cadence_min": 80,
+          "cadence_max": 90
+        }
+      ]
+    },
+    {
+      "name": "Week 7 Intervals",
+      "type": "structured",
+      "weeks": [
+        7
+      ],
+      "phases": [
+        {
+          "name": "Warm Up",
+          "duration": 300,
+          "zone": 2,
+          "cadence_min": 78,
+          "cadence_max": 85
+        },
+        {
+          "name": "Hard 1/6",
+          "duration": 60,
+          "zone": 4,
+          "cadence_min": 85,
+          "cadence_max": 95
+        },
+        {
+          "name": "Easy 1/6",
+          "duration": 120,
+          "zone": 2,
+          "cadence_min": 75,
+          "cadence_max": 85
+        },
+        {
+          "name": "Hard 2/6",
+          "duration": 60,
+          "zone": 4,
+          "cadence_min": 85,
+          "cadence_max": 95
+        },
+        {
+          "name": "Easy 2/6",
+          "duration": 120,
+          "zone": 2,
+          "cadence_min": 75,
+          "cadence_max": 85
+        },
+        {
+          "name": "Hard 3/6",
+          "duration": 60,
+          "zone": 4,
+          "cadence_min": 85,
+          "cadence_max": 95
+        },
+        {
+          "name": "Easy 3/6",
+          "duration": 120,
+          "zone": 2,
+          "cadence_min": 75,
+          "cadence_max": 85
+        },
+        {
+          "name": "Hard 4/6",
+          "duration": 60,
+          "zone": 4,
+          "cadence_min": 85,
+          "cadence_max": 95
+        },
+        {
+          "name": "Easy 4/6",
+          "duration": 120,
+          "zone": 2,
+          "cadence_min": 75,
+          "cadence_max": 85
+        },
+        {
+          "name": "Hard 5/6",
+          "duration": 60,
+          "zone": 4,
+          "cadence_min": 85,
+          "cadence_max": 95
+        },
+        {
+          "name": "Easy 5/6",
+          "duration": 120,
+          "zone": 2,
+          "cadence_min": 75,
+          "cadence_max": 85
+        },
+        {
+          "name": "Hard 6/6",
+          "duration": 60,
+          "zone": 4,
+          "cadence_min": 85,
+          "cadence_max": 95
+        },
+        {
+          "name": "Easy 6/6",
+          "duration": 120,
+          "zone": 2,
+          "cadence_min": 75,
+          "cadence_max": 85
+        },
+        {
+          "name": "Cool Down",
+          "duration": 300,
+          "zone": 1,
+          "cadence_min": 70,
+          "cadence_max": 80
+        }
+      ]
+    },
     {
       "name": "Phase 2 - Wk9: 6x1min Intervals",
       "type": "structured",
