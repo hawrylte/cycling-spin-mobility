@@ -165,6 +165,17 @@ html, body { height:100%; background:var(--bg); color:var(--text); font-family:'
   margin-top: 2px;
 }
 
+.hr-target {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.75);
+  margin-top: 6px;
+  background: rgba(0,0,0,0.25);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
 .zone-pips {
   display: flex;
   gap: 5px;
@@ -531,6 +542,7 @@ html, body { height:100%; background:var(--bg); color:var(--text); font-family:'
       <span class="zone-name-label" id="zoneLabel">-- --</span>
       <div class="hr-number" id="hrValue">--</div>
       <div class="hr-unit">bpm</div>
+      <div class="hr-target" id="hrTarget" style="display:none"></div>
       <div class="zone-pips">
         <div class="zone-pip" id="pip1" style="background:var(--z1)"></div>
         <div class="zone-pip" id="pip2" style="background:var(--z2)"></div>
@@ -856,6 +868,16 @@ function updatePhaseDisplay() {
   // Highlight target zone on HR panel
   const targetZoneNum = phase.zone;
   document.documentElement.style.setProperty('--phase-zone', ZONES[targetZoneNum-1]?.color || 'transparent');
+
+  // Show numeric HR target range for this phase
+  const targetZoneObj = ZONES[targetZoneNum-1];
+  const hrTargetEl = document.getElementById('hrTarget');
+  if (targetZoneObj) {
+    hrTargetEl.textContent = `Target: ${targetZoneObj.min}-${targetZoneObj.max} bpm`;
+    hrTargetEl.style.display = 'block';
+  } else {
+    hrTargetEl.style.display = 'none';
+  }
 }
 
 function tickWorkout() {
@@ -889,6 +911,7 @@ function endWorkout() {
   document.getElementById('workoutBanner').classList.remove('show');
   document.getElementById('phaseInfo').style.display = 'none';
   document.getElementById('timerLabel').style.display = '';
+  document.getElementById('hrTarget').style.display = 'none';
 }
 
 // ── AUDIO BEEP ──
