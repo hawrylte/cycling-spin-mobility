@@ -18,894 +18,187 @@
       ]
     },
     {
-      "name": "Week 7 Intervals",
+      "name": "4x1min VO2max Intervals",
       "type": "structured",
-      "weeks": [
-        7
-      ],
       "phases": [
-        {
-          "name": "Warm Up",
-          "duration": 300,
-          "zone": 2,
-          "cadence_min": 78,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 1/6",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 1/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 2/6",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 2/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 3/6",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 3/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 4/6",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 4/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 5/6",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 5/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 6/6",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 6/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Cool Down",
-          "duration": 300,
-          "zone": 1,
-          "cadence_min": 70,
-          "cadence_max": 80
-        }
+        { "name": "Warm Up", "duration": 300, "zone": 2, "cadence_min": 78, "cadence_max": 85 },
+        { "name": "Hard 1/4", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 1/4", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 2/4", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 2/4", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 3/4", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 3/4", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 4/4", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 4/4", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Cool Down", "duration": 300, "zone": 1, "cadence_min": 70, "cadence_max": 80 }
       ]
     },
     {
-      "name": "Phase 2 - Wk9: 6x1min Intervals",
+      "name": "6x1min VO2max Intervals",
       "type": "structured",
-      "weeks": [
-        9
-      ],
       "phases": [
-        {
-          "name": "Warm Up",
-          "duration": 300,
-          "zone": 2,
-          "cadence_min": 78,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 1/6",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 1/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 2/6",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 2/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 3/6",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 3/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 4/6",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 4/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 5/6",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 5/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 6/6",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 6/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Cool Down",
-          "duration": 300,
-          "zone": 1,
-          "cadence_min": 70,
-          "cadence_max": 80
-        }
+        { "name": "Warm Up", "duration": 300, "zone": 2, "cadence_min": 78, "cadence_max": 85 },
+        { "name": "Hard 1/6", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 1/6", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 2/6", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 2/6", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 3/6", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 3/6", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 4/6", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 4/6", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 5/6", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 5/6", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 6/6", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 6/6", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Cool Down", "duration": 300, "zone": 1, "cadence_min": 70, "cadence_max": 80 }
       ]
     },
     {
-      "name": "Phase 2 - Wk10: 8x1min Intervals",
+      "name": "8x1min VO2max Intervals",
       "type": "structured",
-      "weeks": [
-        10
-      ],
       "phases": [
-        {
-          "name": "Warm Up",
-          "duration": 300,
-          "zone": 2,
-          "cadence_min": 78,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 1/8",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 1/8",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 2/8",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 2/8",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 3/8",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 3/8",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 4/8",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 4/8",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 5/8",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 5/8",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 6/8",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 6/8",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 7/8",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 7/8",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 8/8",
-          "duration": 60,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 8/8",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Cool Down",
-          "duration": 300,
-          "zone": 1,
-          "cadence_min": 70,
-          "cadence_max": 80
-        }
+        { "name": "Warm Up", "duration": 300, "zone": 2, "cadence_min": 78, "cadence_max": 85 },
+        { "name": "Hard 1/8", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 1/8", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 2/8", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 2/8", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 3/8", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 3/8", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 4/8", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 4/8", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 5/8", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 5/8", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 6/8", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 6/8", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 7/8", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 7/8", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 8/8", "duration": 60, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 8/8", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Cool Down", "duration": 300, "zone": 1, "cadence_min": 70, "cadence_max": 80 }
       ]
     },
     {
-      "name": "Phase 2 - Wk11: 5x2min Intervals",
+      "name": "5x2min VO2max Intervals",
       "type": "structured",
-      "weeks": [
-        11
-      ],
       "phases": [
-        {
-          "name": "Warm Up",
-          "duration": 300,
-          "zone": 2,
-          "cadence_min": 78,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 1/5",
-          "duration": 120,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 1/5",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 2/5",
-          "duration": 120,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 2/5",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 3/5",
-          "duration": 120,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 3/5",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 4/5",
-          "duration": 120,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 4/5",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 5/5",
-          "duration": 120,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 5/5",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Cool Down",
-          "duration": 300,
-          "zone": 1,
-          "cadence_min": 70,
-          "cadence_max": 80
-        }
+        { "name": "Warm Up", "duration": 300, "zone": 2, "cadence_min": 78, "cadence_max": 85 },
+        { "name": "Hard 1/5", "duration": 120, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 1/5", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 2/5", "duration": 120, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 2/5", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 3/5", "duration": 120, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 3/5", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 4/5", "duration": 120, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 4/5", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 5/5", "duration": 120, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 5/5", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Cool Down", "duration": 300, "zone": 1, "cadence_min": 70, "cadence_max": 80 }
       ]
     },
     {
-      "name": "Phase 2 - Wk11: Tempo 15min",
+      "name": "6x2min VO2max Intervals",
       "type": "structured",
-      "weeks": [
-        11
-      ],
       "phases": [
-        {
-          "name": "Warm Up",
-          "duration": 300,
-          "zone": 2,
-          "cadence_min": 78,
-          "cadence_max": 85
-        },
-        {
-          "name": "Tempo",
-          "duration": 900,
-          "zone": 3,
-          "cadence_min": 80,
-          "cadence_max": 90
-        },
-        {
-          "name": "Cool Down",
-          "duration": 300,
-          "zone": 1,
-          "cadence_min": 70,
-          "cadence_max": 80
-        }
+        { "name": "Warm Up", "duration": 300, "zone": 2, "cadence_min": 78, "cadence_max": 85 },
+        { "name": "Hard 1/6", "duration": 120, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 1/6", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 2/6", "duration": 120, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 2/6", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 3/6", "duration": 120, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 3/6", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 4/6", "duration": 120, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 4/6", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 5/6", "duration": 120, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 5/6", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 6/6", "duration": 120, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 6/6", "duration": 120, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Cool Down", "duration": 300, "zone": 1, "cadence_min": 70, "cadence_max": 80 }
       ]
     },
     {
-      "name": "Phase 2 - Deload: 4x1min Easy Intervals",
+      "name": "4x3min VO2max Intervals",
       "type": "structured",
-      "weeks": [
-        12,
-        16
-      ],
       "phases": [
-        {
-          "name": "Warm Up",
-          "duration": 300,
-          "zone": 2,
-          "cadence_min": 78,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 1/4",
-          "duration": 60,
-          "zone": 3,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 1/4",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 70,
-          "cadence_max": 80
-        },
-        {
-          "name": "Hard 2/4",
-          "duration": 60,
-          "zone": 3,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 2/4",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 70,
-          "cadence_max": 80
-        },
-        {
-          "name": "Hard 3/4",
-          "duration": 60,
-          "zone": 3,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 3/4",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 70,
-          "cadence_max": 80
-        },
-        {
-          "name": "Hard 4/4",
-          "duration": 60,
-          "zone": 3,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 4/4",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 70,
-          "cadence_max": 80
-        },
-        {
-          "name": "Cool Down",
-          "duration": 300,
-          "zone": 1,
-          "cadence_min": 70,
-          "cadence_max": 80
-        }
+        { "name": "Warm Up", "duration": 300, "zone": 2, "cadence_min": 78, "cadence_max": 85 },
+        { "name": "Hard 1/4", "duration": 180, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 1/4", "duration": 180, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 2/4", "duration": 180, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 2/4", "duration": 180, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 3/4", "duration": 180, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 3/4", "duration": 180, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 4/4", "duration": 180, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 4/4", "duration": 180, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Cool Down", "duration": 300, "zone": 1, "cadence_min": 70, "cadence_max": 80 }
       ]
     },
     {
-      "name": "Phase 2 - Wk13: 6x2min Intervals",
+      "name": "5x3min VO2max Intervals",
       "type": "structured",
-      "weeks": [
-        13
-      ],
       "phases": [
-        {
-          "name": "Warm Up",
-          "duration": 300,
-          "zone": 2,
-          "cadence_min": 78,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 1/6",
-          "duration": 120,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 1/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 2/6",
-          "duration": 120,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 2/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 3/6",
-          "duration": 120,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 3/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 4/6",
-          "duration": 120,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 4/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 5/6",
-          "duration": 120,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 5/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 6/6",
-          "duration": 120,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 6/6",
-          "duration": 120,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Cool Down",
-          "duration": 300,
-          "zone": 1,
-          "cadence_min": 70,
-          "cadence_max": 80
-        }
+        { "name": "Warm Up", "duration": 300, "zone": 2, "cadence_min": 78, "cadence_max": 85 },
+        { "name": "Hard 1/5", "duration": 180, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 1/5", "duration": 180, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 2/5", "duration": 180, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 2/5", "duration": 180, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 3/5", "duration": 180, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 3/5", "duration": 180, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 4/5", "duration": 180, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 4/5", "duration": 180, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Hard 5/5", "duration": 180, "zone": 4, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 5/5", "duration": 180, "zone": 2, "cadence_min": 75, "cadence_max": 85 },
+        { "name": "Cool Down", "duration": 300, "zone": 1, "cadence_min": 70, "cadence_max": 80 }
       ]
     },
     {
-      "name": "Phase 2 - Wk13: Tempo 18min",
+      "name": "Deload 4x1min Easy Intervals",
       "type": "structured",
-      "weeks": [
-        13
-      ],
       "phases": [
-        {
-          "name": "Warm Up",
-          "duration": 300,
-          "zone": 2,
-          "cadence_min": 78,
-          "cadence_max": 85
-        },
-        {
-          "name": "Tempo",
-          "duration": 1080,
-          "zone": 3,
-          "cadence_min": 80,
-          "cadence_max": 90
-        },
-        {
-          "name": "Cool Down",
-          "duration": 300,
-          "zone": 1,
-          "cadence_min": 70,
-          "cadence_max": 80
-        }
+        { "name": "Warm Up", "duration": 300, "zone": 2, "cadence_min": 78, "cadence_max": 85 },
+        { "name": "Hard 1/4", "duration": 60, "zone": 3, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 1/4", "duration": 180, "zone": 2, "cadence_min": 70, "cadence_max": 80 },
+        { "name": "Hard 2/4", "duration": 60, "zone": 3, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 2/4", "duration": 180, "zone": 2, "cadence_min": 70, "cadence_max": 80 },
+        { "name": "Hard 3/4", "duration": 60, "zone": 3, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 3/4", "duration": 180, "zone": 2, "cadence_min": 70, "cadence_max": 80 },
+        { "name": "Hard 4/4", "duration": 60, "zone": 3, "cadence_min": 85, "cadence_max": 95 },
+        { "name": "Easy 4/4", "duration": 180, "zone": 2, "cadence_min": 70, "cadence_max": 80 },
+        { "name": "Cool Down", "duration": 300, "zone": 1, "cadence_min": 70, "cadence_max": 80 }
       ]
     },
     {
-      "name": "Phase 2 - Wk14: 4x3min Intervals",
+      "name": "Tempo 12min",
       "type": "structured",
-      "weeks": [
-        14
-      ],
       "phases": [
-        {
-          "name": "Warm Up",
-          "duration": 300,
-          "zone": 2,
-          "cadence_min": 78,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 1/4",
-          "duration": 180,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 1/4",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 2/4",
-          "duration": 180,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 2/4",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 3/4",
-          "duration": 180,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 3/4",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 4/4",
-          "duration": 180,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 4/4",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Cool Down",
-          "duration": 300,
-          "zone": 1,
-          "cadence_min": 70,
-          "cadence_max": 80
-        }
+        { "name": "Warm Up", "duration": 300, "zone": 2, "cadence_min": 78, "cadence_max": 85 },
+        { "name": "Tempo", "duration": 720, "zone": 3, "cadence_min": 80, "cadence_max": 90 },
+        { "name": "Cool Down", "duration": 300, "zone": 1, "cadence_min": 70, "cadence_max": 80 }
       ]
     },
     {
-      "name": "Phase 2 - Wk15: 5x3min Intervals",
+      "name": "Tempo 15min",
       "type": "structured",
-      "weeks": [
-        15
-      ],
       "phases": [
-        {
-          "name": "Warm Up",
-          "duration": 300,
-          "zone": 2,
-          "cadence_min": 78,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 1/5",
-          "duration": 180,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 1/5",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 2/5",
-          "duration": 180,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 2/5",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 3/5",
-          "duration": 180,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 3/5",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 4/5",
-          "duration": 180,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 4/5",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Hard 5/5",
-          "duration": 180,
-          "zone": 4,
-          "cadence_min": 85,
-          "cadence_max": 95
-        },
-        {
-          "name": "Easy 5/5",
-          "duration": 180,
-          "zone": 2,
-          "cadence_min": 75,
-          "cadence_max": 85
-        },
-        {
-          "name": "Cool Down",
-          "duration": 300,
-          "zone": 1,
-          "cadence_min": 70,
-          "cadence_max": 80
-        }
+        { "name": "Warm Up", "duration": 300, "zone": 2, "cadence_min": 78, "cadence_max": 85 },
+        { "name": "Tempo", "duration": 900, "zone": 3, "cadence_min": 80, "cadence_max": 90 },
+        { "name": "Cool Down", "duration": 300, "zone": 1, "cadence_min": 70, "cadence_max": 80 }
       ]
     },
     {
-      "name": "Phase 2 - Wk15: Tempo 20min",
+      "name": "Tempo 18min",
       "type": "structured",
-      "weeks": [
-        15
-      ],
       "phases": [
-        {
-          "name": "Warm Up",
-          "duration": 300,
-          "zone": 2,
-          "cadence_min": 78,
-          "cadence_max": 85
-        },
-        {
-          "name": "Tempo",
-          "duration": 1200,
-          "zone": 3,
-          "cadence_min": 80,
-          "cadence_max": 90
-        },
-        {
-          "name": "Cool Down",
-          "duration": 300,
-          "zone": 1,
-          "cadence_min": 70,
-          "cadence_max": 80
-        }
+        { "name": "Warm Up", "duration": 300, "zone": 2, "cadence_min": 78, "cadence_max": 85 },
+        { "name": "Tempo", "duration": 1080, "zone": 3, "cadence_min": 80, "cadence_max": 90 },
+        { "name": "Cool Down", "duration": 300, "zone": 1, "cadence_min": 70, "cadence_max": 80 }
+      ]
+    },
+    {
+      "name": "Tempo 20min",
+      "type": "structured",
+      "phases": [
+        { "name": "Warm Up", "duration": 300, "zone": 2, "cadence_min": 78, "cadence_max": 85 },
+        { "name": "Tempo", "duration": 1200, "zone": 3, "cadence_min": 80, "cadence_max": 90 },
+        { "name": "Cool Down", "duration": 300, "zone": 1, "cadence_min": 70, "cadence_max": 80 }
       ]
     }
   ]

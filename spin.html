@@ -317,36 +317,6 @@ html, body { height:100%; background:var(--bg); color:var(--text); font-family:'
   margin-bottom: 20px;
 }
 
-.week-filter-row {
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-  margin-bottom: 14px;
-  scrollbar-width: none;
-}
-.week-filter-row::-webkit-scrollbar { display: none; }
-
-.week-chip {
-  flex-shrink: 0;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--text-sec);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 7px 14px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s;
-}
-
-.week-chip.active {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-dim);
-}
-
 .workout-list {
   display: flex;
   flex-direction: column;
@@ -496,7 +466,6 @@ html, body { height:100%; background:var(--bg); color:var(--text); font-family:'
   <div class="sheet">
     <div class="sheet-title">Select Workout</div>
     <div class="sheet-sub">Choose a structured session or ride free</div>
-    <div class="week-filter-row" id="weekFilterRow"></div>
     <div class="workout-list" id="workoutList"></div>
     <div class="duration-picker" id="durationPicker">
       <div class="dur-btn" onclick="selectDuration(30)">30 min</div>
@@ -709,11 +678,7 @@ async function loadWorkouts() {
   }
 }
 
-let selectedWeekFilter = 'all';
-
 function openWorkoutPicker() {
-  selectedWeekFilter = 'all';
-  renderWeekFilters();
   renderWorkoutList();
   document.getElementById('workoutOverlay').classList.add('show');
   selectedWorkout = null;
@@ -722,54 +687,16 @@ function openWorkoutPicker() {
   document.getElementById('durationPicker').classList.remove('show');
 }
 
-function renderWeekFilters() {
-  // Collect every distinct week number found across workouts' "weeks" arrays
-  const weekSet = new Set();
-  workouts.forEach(w => { if (Array.isArray(w.weeks)) w.weeks.forEach(n => weekSet.add(n)); });
-  const sortedWeeks = Array.from(weekSet).sort((a,b) => a-b);
-
-  const row = document.getElementById('weekFilterRow');
-  row.innerHTML = '';
-
-  const allChip = document.createElement('div');
-  allChip.className = 'week-chip' + (selectedWeekFilter === 'all' ? ' active' : '');
-  allChip.textContent = 'All';
-  allChip.onclick = () => setWeekFilter('all');
-  row.appendChild(allChip);
-
-  sortedWeeks.forEach(n => {
-    const chip = document.createElement('div');
-    chip.className = 'week-chip' + (selectedWeekFilter === n ? ' active' : '');
-    chip.textContent = `Wk ${n}`;
-    chip.onclick = () => setWeekFilter(n);
-    row.appendChild(chip);
-  });
-}
-
-function setWeekFilter(val) {
-  selectedWeekFilter = val;
-  renderWeekFilters();
-  renderWorkoutList();
-}
-
 function renderWorkoutList() {
   const list = document.getElementById('workoutList');
   list.innerHTML = '';
 
-  // A workout with no "weeks" field (e.g. free-ride Zone 2) is evergreen and always shown.
-  // A workout with a "weeks" array only shows under "All" or a matching week chip.
-  const filtered = workouts.filter(w => {
-    if (selectedWeekFilter === 'all') return true;
-    if (!Array.isArray(w.weeks) || w.weeks.length === 0) return true;
-    return w.weeks.includes(selectedWeekFilter);
-  });
-
-  if (filtered.length === 0) {
-    list.innerHTML = '<div class="workout-list-empty">No workouts tagged for this week yet</div>';
+  if (workouts.length === 0) {
+    list.innerHTML = '<div class="workout-list-empty">No workouts available yet</div>';
     return;
   }
 
-  filtered.forEach((w) => {
+  workouts.forEach((w) => {
     const idx = workouts.indexOf(w);
     const totalSecs = w.phases.reduce((a,p) => a+p.duration, 0);
     const mins = Math.round(totalSecs/60);

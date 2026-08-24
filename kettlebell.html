@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0d0d0d">
-<title>Kettlebell Power</title>
+<title>Kettlebell Circuit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -94,15 +94,18 @@
   }
   .note b{color:var(--ember-soft);}
 
-  /* ---- mode tabs ---- */
-  .tabs{display:flex;gap:8px;margin-bottom:22px;}
+  /* ---- day tabs ---- */
+  .tabs{display:flex;gap:6px;margin-bottom:22px;overflow-x:auto;scrollbar-width:none;}
+  .tabs::-webkit-scrollbar{display:none;}
   .tab{
-    flex:1;text-align:center;padding:11px 0;border-radius:8px;
+    flex:1;min-width:58px;text-align:center;padding:11px 0;border-radius:8px;
     border:1px solid var(--line);background:var(--panel);
     color:var(--ash);font-family:'Oswald',sans-serif;font-size:13px;
     letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;
   }
   .tab.active{background:var(--ember-dim);border-color:var(--ember);color:var(--ember-soft);}
+  .tab .tabsub{display:block;font-family:'Inter',sans-serif;text-transform:none;font-size:9.5px;color:var(--ash);letter-spacing:0;margin-top:2px;}
+  .tab.active .tabsub{color:var(--ember-soft);opacity:0.8;}
 
   /* ---- blocks ---- */
   .block{margin-bottom:30px;}
@@ -191,31 +194,34 @@
 
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Kettlebell Power</div>
-    <h1 class="title">Forge Day</h1>
-    <p class="sub">Off-bike supplement on Tue / Thu / Sat — the rest days between your Mon / Wed / Fri (+ occasional Sun) Zone&nbsp;2 rides. Hip-hinge power, posture, and single-leg symmetry that pay off now and matter even more once Phase 2 brings structured intervals.</p>
+    <div class="eyebrow">Kettlebell Circuit</div>
+    <h1 class="title">Full Body, 5 Days</h1>
+    <p class="sub">A Mon&ndash;Fri morning program built around one 25lb bell and a 7&prime; basement ceiling. Strength and conditioning days alternate so the same muscles aren't hammered five days straight, and every overhead move is done seated to stay well clear of the rafters.</p>
     <div class="badges">
-      <span class="badge">18–22 min</span>
-      <span class="badge">Posterior-chain power</span>
-      <span class="badge">Cycling posture</span>
-      <span class="badge">Pedal symmetry</span>
+      <span class="badge">20&ndash;23 min</span>
+      <span class="badge">Full body</span>
+      <span class="badge">Ceiling-safe</span>
+      <span class="badge">25lb bell</span>
     </div>
   </div>
 
   <div class="note">
-    <b>When to do this:</b> Tue / Thu / Sat sit between your Mon / Wed / Fri (+ occasional Sun) rides — good spacing to add strength without compounding ride fatigue on the same day. Keep loads moderate throughout: today's job is power, position, and symmetry — not maximal strength, and not extra stress layered on top of your current calorie deficit. No special fueling needed beyond your normal hydration; your post-ride snack rule still only applies on ride days. Once Phase 2 adds structured intervals, this same routine and schedule carries over directly.
+    <b>Before you start:</b> a small carb-forward bite 15&ndash;20 min out (banana, dates, toast with honey) keeps energy up without sitting heavy this early. All pressing work is done <b>seated</b> &mdash; that's what keeps a full overhead lockout under your 7&prime; ceiling. Standing swings and pulls stay capped at chest height on purpose; don't add push press or snatches into this mix.
   </div>
 
-  <div class="tabs">
-    <div class="tab active" data-mode="full">Full (22 min)</div>
-    <div class="tab" data-mode="quick">Quick (12 min)</div>
+  <div class="tabs" id="dayTabs">
+    <div class="tab active" data-day="mon">Mon<span class="tabsub">Strength A</span></div>
+    <div class="tab" data-day="tue">Tue<span class="tabsub">Condition A</span></div>
+    <div class="tab" data-day="wed">Wed<span class="tabsub">Strength B</span></div>
+    <div class="tab" data-day="thu">Thu<span class="tabsub">Condition B</span></div>
+    <div class="tab" data-day="fri">Fri<span class="tabsub">+ Core</span></div>
   </div>
 
   <div id="blocks"></div>
 
   <div class="done-card" id="doneCard" style="display:none;">
-    <div class="display">Forged. 💪</div>
-    Hip power, posture, and pedal symmetry — reset for the next interval session. Drink some water.
+    <div class="display">Done. 💪</div>
+    Full body, done for the day &mdash; drink some water. Same time tomorrow.
   </div>
 </div>
 
@@ -223,91 +229,164 @@
 /* ---------------- DATA ---------------- */
 const EXERCISES = {
   swing: {
-    name:'Two-Arm Kettlebell Swing', time:'3 min', meta:'4 sets × 12 reps · rest 30 sec',
-    why:'The swing is an explosive hip hinge — fast, high-force hip extension that pure Zone 2 spinning never trains, since steady-state riding stays sub-maximal. It builds posterior-chain power now and sets up the standing, out-of-saddle efforts Phase 2 intervals will demand, all without the joint stress of a heavy squat or deadlift.',
-    how:'Stand with feet shoulder-width, kettlebell on the floor ~12in in front. Hinge at the hips to grip it, hike it back like a football snap, then snap your hips forward to send it to chest height. Arms stay loose — they\'re a rope, not the engine. Let gravity bring it back down into the next hike.',
-    mistake:'Squatting the swing turns it into an up-and-down lift instead of an explosive hinge — drop your hips back, not down, and keep weight in your heels.',
+    name:'Two-Arm Russian Swing', time:'3 min', meta:'4 sets × 12 reps · rest 30 sec',
+    why:'The swing is an explosive hip hinge that torches calories fast and builds posterior-chain power in one shot &mdash; the single best rep-for-rep move for a full-body circuit. Capping it at chest height (Russian style, not American) keeps every rep well clear of a low ceiling.',
+    how:'Stand with feet shoulder-width, kettlebell on the floor ~12in in front. Hinge at the hips to grip it, hike it back like a football snap, then snap your hips forward to send it to chest height &mdash; no higher. Arms stay loose, they\'re a rope, not the engine. Let gravity bring it back down into the next hike.',
+    mistake:'Letting the bell drift above chest/eye level turns this into an overhead swing that risks the ceiling &mdash; if it\'s floating higher than your chin, dial back the hip snap.',
     type:'sets', setsCount:4,
     video:'https://www.youtube.com/watch?v=1Qi0NQW89Oc'
   },
   sld: {
     name:'Single-Leg Deadlift', time:'3 min', meta:'2 sets × 8 reps per leg',
-    why:'Pedaling locks you into one fixed plane, and small left-right strength gaps go unnoticed there — until fatigue exposes them. This unilateral hinge builds balance and posterior-chain strength independently on each side, the most direct fix for asymmetric pedal force.',
-    how:'Hold a kettlebell in the hand opposite your stance leg. Lift the other foot, unlock the knee, and hinge forward at the hip while that leg reaches straight back. Lower until your chest is near parallel to the floor, then drive back up through the standing heel. Start on your weaker leg each set.',
-    mistake:'Dropping the chest instead of hinging the hip rounds the back — reach the rear leg back and let the torso tilt forward as one piece.',
+    why:'A unilateral hinge that builds balance and posterior-chain strength independently on each side, so you\'re not just adding load to whichever leg is already stronger.',
+    how:'Hold the kettlebell in the hand opposite your stance leg. Lift the other foot, unlock the knee, and hinge forward at the hip while that leg reaches straight back. Lower until your chest is near parallel to the floor, then drive back up through the standing heel. Start on your weaker leg each set.',
+    mistake:'Dropping the chest instead of hinging the hip rounds the back &mdash; reach the rear leg back and let the torso tilt forward as one piece.',
     type:'sets', setsCount:2, setsLabel:'per leg',
     video:'https://www.youtube.com/watch?v=o0rblOFkuho'
   },
   row: {
     name:'Single-Arm Row', time:'3 min', meta:'3 sets × 10 reps per side',
-    why:'Hours in the drops round your shoulders forward. The single-arm row directly trains the lats and mid-back that pull you back out of that position, giving you a stronger, more stable platform to hold an aero posture deep into a hard interval.',
-    how:'Hinge at the hips with a flat back, kettlebell hanging in one hand. Row the bell straight up to your ribs, driving the elbow back and squeezing the shoulder blade down and in. Lower under control — don\'t let it drop.',
-    mistake:'Jerking the bell up with the bicep skips the back entirely — initiate the pull from the shoulder blade, not the arm.',
+    why:'A big back move that pulls double duty: it builds real pulling strength while directly countering the rounded-shoulder posture that comes from a desk job.',
+    how:'Hinge at the hips with a flat back, kettlebell hanging in one hand. Row the bell straight up to your ribs, driving the elbow back and squeezing the shoulder blade down and in. Lower under control &mdash; don\'t let it drop.',
+    mistake:'Jerking the bell up with the bicep skips the back entirely &mdash; initiate the pull from the shoulder blade, not the arm.',
     type:'sets', setsCount:3, setsLabel:'per side',
     video:'https://www.youtube.com/watch?v=l5qelXL5nfs'
   },
   halo: {
     name:'Kettlebell Halo', time:'3 min', meta:'2 sets × 8 reps each direction',
-    why:'The riding position locks your thoracic spine in flexion. The halo circles the bell around your head to actively mobilize the shoulders and upper back — the opposite motion of gripping a handlebar — and it also opens the rib cage for fuller breathing under load.',
+    why:'Circles the bell around your head at shoulder height to mobilize the shoulders and upper back and open the rib cage for fuller breathing &mdash; and because it never travels above head height, it\'s naturally ceiling-safe.',
     how:'Hold the kettlebell upside-down by the horns at chest height. Circle it around your head, staying close to your neck, flipping it as it passes behind your skull. Complete the circle in front and reverse direction after each set.',
-    mistake:'Letting the bell drift away from your head turns this into a shoulder press instead of a mobility drill — keep it tight to your skull the whole way around.',
+    mistake:'Letting the bell drift away from your head turns this into a shoulder press instead of a mobility drill &mdash; keep it tight to your skull the whole way around.',
     type:'sets', setsCount:2, setsLabel:'per direction',
     video:'https://www.youtube.com/watch?v=z8f3M4xImto'
   },
   ohp: {
-    name:'Single-Arm Overhead Press', time:'3 min', meta:'2 sets × 8 reps per arm',
-    why:'Cyclists rarely train anything overhead, leaving the shoulders weak in a range the bike never uses — until you stand and brace hard, which becomes more frequent once Phase 2 adds standing intervals. This builds that missing overhead stability and full-body bracing ahead of time.',
-    how:'Clean the bell to your shoulder in the rack position, forearm vertical. Brace your core and glutes, then press straight up until your bicep is by your ear, letting your wrist rotate so your palm faces forward at the top. Pull it back down with control.',
-    mistake:'Arching the lower back to launch the weight up is a mobility compensation — if you can\'t press without arching, drop the load and work the position first.',
+    name:'Seated Single-Arm Overhead Press', time:'3 min', meta:'2 sets × 8 reps per arm',
+    why:'Sitting drops your shoulder height to roughly 3.5&ndash;4ft, so even a full lockout tops out around 6ft &mdash; well clear of a 7ft ceiling. This is the one place in the program you get a genuine overhead press.',
+    how:'Sit on the floor or a sturdy chair/bench, feet planted, back tall. Clean the bell to your shoulder in the rack position, forearm vertical. Brace your core, then press straight up until your arm is fully locked out, letting your wrist rotate so your palm faces forward at the top. Pull it back down with control.',
+    mistake:'Arching the lower back to launch the weight up is a mobility compensation, not strength &mdash; if you can\'t press without arching off the seat, drop the weight and work the position first.',
     type:'sets', setsCount:2, setsLabel:'per arm',
-    video:'https://www.youtube.com/watch?v=gjr-QAdsq4o'
+    video:'https://www.youtube.com/watch?v=X-uFqWtjpGI'
   },
   goblet: {
     name:'Goblet Squat', time:'3 min', meta:'3 sets × 10 reps',
-    why:'A front-loaded, bilateral squat builds quad and glute strength that complements your bike-specific power without the spinal load of a back squat — useful off-bike leg strength that carries over to grinding low-cadence efforts.',
+    why:'A front-loaded, bilateral squat that builds real quad and glute strength without any spinal loading &mdash; one of the most efficient calorie-burning moves you can do with a single bell.',
     how:'Hold the kettlebell by the horns at chest height, elbows tucked. Push your hips back and sit down between your heels, keeping your chest up and weight rooted through your heels. Go to at least thigh-parallel, then drive back up.',
-    mistake:'Letting the knees cave inward as you stand loses force through the hips — actively push the knees out over your toes on the way up.',
+    mistake:'Letting the knees cave inward as you stand loses force through the hips &mdash; actively push the knees out over your toes on the way up.',
     type:'sets', setsCount:3,
     video:'https://www.youtube.com/watch?v=aNDUbH_Uv4g'
   },
   suitcase: {
     name:'Suitcase Carry', time:'2 min', meta:'2 holds × 30 sec per side',
-    why:'A kettlebell hanging on one side tries to tip your torso sideways — the same rocking that leaks power any time you\'re out of the saddle pushing hard, whether that\'s a hill on a Zone 2 ride today or a standing interval later in the plan. This carry trains your core to resist that lateral pull instead.',
-    how:'Deadlift the kettlebell to stand, holding it at your side like a suitcase. Walk with short, controlled steps, keeping your shoulders level and ribs stacked over your pelvis — don\'t lean away from the weight.',
-    mistake:'Leaning your torso away from the bell defeats the exercise — you should look symmetrical from the front the entire walk.',
+    why:'A kettlebell hanging on one side tries to tip your torso sideways. Training your core to resist that builds real, transferable anti-lean stability without any extra equipment.',
+    how:'Deadlift the kettlebell to stand, holding it at your side like a suitcase. Walk with short, controlled steps, keeping your shoulders level and ribs stacked over your pelvis &mdash; don\'t lean away from the weight.',
+    mistake:'Leaning your torso away from the bell defeats the exercise &mdash; you should look symmetrical from the front the entire walk.',
     type:'hold', holdSeconds:30, holdLabel:'EACH SIDE',
     video:'https://www.youtube.com/watch?v=SXf6ePnQMJ8'
   },
   pullthrough: {
     name:'Plank Pull-Through', time:'2 min', meta:'2 sets × 10 reps per side',
-    why:'This is the suitcase carry\'s opposite number for rotation instead of side-bend — both are the kind of energy leak that shows up on the bike as wasted lateral motion when you\'re sprinting or grinding out of the saddle.',
+    why:'An anti-rotation core move &mdash; while the suitcase carry resists side-bend, this resists rotation. Together they cover the two ways a weak core leaks power.',
     how:'Set up in a high plank, feet outside your shoulders, kettlebell just outside one hand. Reach the opposite hand under your body to grab the bell and pull it through to the other side, keeping your hips square and still the entire time.',
-    mistake:'Letting the hips rock side to side as you pull defeats the point — think "plank first, pull second," and slow down until they stop moving.',
+    mistake:'Letting the hips rock side to side as you pull defeats the point &mdash; think "plank first, pull second," and slow down until they stop moving.',
     type:'sets', setsCount:2, setsLabel:'per side',
     video:'https://www.youtube.com/watch?v=FpOHfYj6zWQ'
+  },
+  clean: {
+    name:'Single-Arm Clean', time:'3 min', meta:'3 sets × 8 reps per side',
+    why:'The clean is how you get the bell to your shoulder without a swing or a snatch &mdash; a controlled, explosive-but-compact pull that stays at chest height the whole way, making it naturally ceiling-friendly.',
+    how:'Set up in a hip hinge with the bell between your feet. Hike it back slightly, then drive your hips forward and pull the bell up close to your body, rotating your hand around it as it arrives at your shoulder so it lands softly in the rack position. Lower it back down under control and reset.',
+    mistake:'Muscling the bell up with the arm instead of the hips causes it to bang into your wrist and forearm &mdash; the power should come from the hip snap, with the arm just guiding it in.',
+    type:'sets', setsCount:3, setsLabel:'per side',
+    video:'https://www.youtube.com/watch?v=ZJuFcYWgHdQ'
+  },
+  lunge: {
+    name:'Racked Reverse Lunge', time:'3 min', meta:'2 sets × 8 reps per leg',
+    why:'A single-leg strength move that builds the kind of balanced, asymmetry-proof leg strength a bilateral squat can\'t &mdash; and stepping backward is easier on the knees than stepping forward.',
+    how:'Hold the kettlebell at your shoulder in the rack position. Step one leg back and bend both knees until the back knee lightly taps the floor, keeping your torso upright. Drive through the front heel to stand back up, then alternate legs.',
+    mistake:'Leaning the torso forward to catch balance shifts the work off the front leg\'s glute &mdash; keep your chest tall and your weight in the front heel throughout.',
+    type:'sets', setsCount:2, setsLabel:'per leg',
+    video:'https://www.youtube.com/watch?v=2D4xApe-UFU'
+  },
+  deadlift: {
+    name:'Two-Hand Deadlift', time:'3 min', meta:'3 sets × 10 reps',
+    why:'The most efficient posterior-chain builder in the program &mdash; glutes, hamstrings, and lower back all in one bilateral, low-skill lift that\'s easy to load up as you get stronger.',
+    how:'Stand with the kettlebell between your feet, ankle bones lined up with the horns. Push your hips back to hinge down, grip the bell, then drive through your heels to stand tall, squeezing your glutes at the top. Lower back down the same hinge path.',
+    mistake:'Squatting the weight up instead of hinging turns this into a bad goblet squat &mdash; push the hips back first, not the knees forward.',
+    type:'sets', setsCount:3,
+    video:'https://www.youtube.com/watch?v=9eVB3V3YFcg'
+  },
+  highpull: {
+    name:'Kettlebell High Pull', time:'3 min', meta:'3 sets × 10 reps',
+    why:'A punchy, explosive pull that trains the same hip-snap power as a swing but finishes with the elbow driving up near the chin instead of the bell floating out &mdash; a great conditioning move that never goes near the ceiling.',
+    how:'Start like a swing: hinge, hike the bell back, then snap the hips forward. As the bell rises to chest height, pull the elbow up and back so the bell tracks close to your body, finishing with your hand roughly chin height. Let it swing back down into the next rep.',
+    mistake:'Yanking with the shoulder instead of driving with the hips turns this into an arm exercise &mdash; the hip snap should do almost all the work of getting the bell moving.',
+    type:'sets', setsCount:3,
+    video:'https://www.youtube.com/watch?v=Li4g5p6s2eM'
+  },
+  carry: {
+    name:'Front-Rack Carry', time:'2 min', meta:'2 holds × 30 sec per side',
+    why:'Loading one side in the rack position instead of at your side forces your core to resist rotation and lateral lean at the same time &mdash; a step up in difficulty from the suitcase carry.',
+    how:'Clean the bell into the rack position at your shoulder. Walk with short, controlled steps, keeping your ribs stacked over your hips and your torso square &mdash; resist the urge to twist away from the load.',
+    mistake:'Letting the loaded shoulder hike up toward your ear bleeds tension into your neck &mdash; keep it packed down and let your core do the stabilizing instead.',
+    type:'hold', holdSeconds:30, holdLabel:'EACH SIDE',
+    video:'https://www.youtube.com/watch?v=BcOp2BsFBXo'
+  },
+  renrow: {
+    name:'Single-Bell Renegade Row', time:'3 min', meta:'3 sets × 8 reps per side',
+    why:'A plank with a row layered on top &mdash; it trains anti-rotation core strength and back strength at the same time, which is exactly the kind of two-for-one work a short circuit needs.',
+    how:'Set the kettlebell on the floor and get into a high plank with one hand gripping it, the other hand flat on the floor, feet set wide for stability. Row the bell up to your ribs without letting your hips twist, lower it back down, then walk your hands over to switch the bell to the other side.',
+    mistake:'Letting the hips rotate toward the working arm turns this into a twisting row instead of a plank row &mdash; brace hard and keep both hips square to the floor.',
+    type:'sets', setsCount:3, setsLabel:'per side',
+    video:'https://www.youtube.com/watch?v=JGDdzQdRZns'
+  },
+  deadbug: {
+    name:'Kettlebell Dead Bug', time:'2 min', meta:'2 sets × 8 reps per side',
+    why:'Lying on your back keeps this one completely ceiling-safe while it trains your core to keep your spine stable under load &mdash; a good low-fatigue way to close out a session.',
+    how:'Lie on your back holding the kettlebell in both hands, arms extended straight up over your chest. Bend hips and knees to 90 degrees. Slowly extend one leg out straight while keeping your lower back pressed into the floor, then return and switch legs.',
+    mistake:'Letting your lower back arch off the floor as the leg extends means your core has lost the job &mdash; only extend as far as you can keep your back flat.',
+    type:'sets', setsCount:2, setsLabel:'per side',
+    video:'https://www.youtube.com/watch?v=556ibwFFFAM'
   }
 };
 
 const BLOCKS = {
-  full:[
-    {num:'Block 1', title:'Hip Power & Posterior Chain', desc:'6 minutes · 2 exercises · explosive hinge', mins:6, items:['swing','sld']},
-    {num:'Block 2', title:'Upper Body & Cycling Posture', desc:'9 minutes · 3 exercises · undo the handlebars', mins:9, items:['row','halo','ohp']},
-    {num:'Block 3', title:'Core & Stability', desc:'7 minutes · 3 exercises · stop the power leaks', mins:7, items:['goblet','suitcase','pullthrough']}
+  mon:[
+    {num:'Block 1', title:'Hip Power & Posterior Chain', desc:'6 minutes · 2 exercises', mins:6, items:['swing','sld']},
+    {num:'Block 2', title:'Press & Pull', desc:'9 minutes · 3 exercises', mins:9, items:['ohp','row','halo']},
+    {num:'Block 3', title:'Core & Legs', desc:'7 minutes · 3 exercises', mins:7, items:['goblet','suitcase','pullthrough']}
   ],
-  quick:[
-    {num:'Quick Set', title:'12-Minute Essentials', desc:'12 minutes · 4 exercises · one move per quality', mins:12, items:['swing','row','goblet','suitcase']}
+  tue:[
+    {num:'Block 1', title:'Explosive Conditioning', desc:'6 minutes · 2 exercises', mins:6, items:['swing','highpull']},
+    {num:'Block 2', title:'Full Body Circuit', desc:'9 minutes · 3 exercises', mins:9, items:['goblet','row','lunge']},
+    {num:'Block 3', title:'Stability Finisher', desc:'7 minutes · 3 exercises', mins:7, items:['deadbug','carry','halo']}
+  ],
+  wed:[
+    {num:'Block 1', title:'Hip Power', desc:'6 minutes · 2 exercises', mins:6, items:['clean','sld']},
+    {num:'Block 2', title:'Legs & Press', desc:'9 minutes · 3 exercises', mins:9, items:['lunge','halo','ohp']},
+    {num:'Block 3', title:'Pull & Core', desc:'8 minutes · 3 exercises', mins:8, items:['deadlift','row','suitcase']}
+  ],
+  thu:[
+    {num:'Block 1', title:'Explosive Conditioning', desc:'6 minutes · 2 exercises', mins:6, items:['swing','lunge']},
+    {num:'Block 2', title:'Full Body Circuit', desc:'9 minutes · 3 exercises', mins:9, items:['renrow','goblet','highpull']},
+    {num:'Block 3', title:'Stability Finisher', desc:'6 minutes · 3 exercises', mins:6, items:['deadbug','pullthrough','carry']}
+  ],
+  fri:[
+    {num:'Block 1', title:'Hip Power', desc:'5 minutes · 2 exercises', mins:5, items:['deadlift','carry']},
+    {num:'Block 2', title:'Pull & Legs', desc:'9 minutes · 3 exercises', mins:9, items:['row','renrow','goblet']},
+    {num:'Block 3', title:'Core Finisher', desc:'6 minutes · 3 exercises', mins:6, items:['deadbug','suitcase','pullthrough']}
   ]
 };
 
 /* ---------------- RENDER ---------------- */
 const blocksEl = document.getElementById('blocks');
-let mode = 'full';
+let day = 'mon';
 let totalSeconds = 22*60;
 
 function renderBlocks(){
   blocksEl.innerHTML = '';
   let total = 0;
-  BLOCKS[mode].forEach(block=>{
+  BLOCKS[day].forEach(block=>{
     total += block.mins;
     const b = document.createElement('div');
     b.className = 'block';
@@ -411,8 +490,9 @@ document.querySelectorAll('.tab').forEach(tab=>{
   tab.addEventListener('click', ()=>{
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
-    mode = tab.dataset.mode;
+    day = tab.dataset.day;
     pauseMainTimer();
+    document.getElementById('doneCard').style.display = 'none';
     renderBlocks();
   });
 });
