@@ -1,9 +1,10 @@
-const CACHE = 'training-hub-v1';
+const CACHE = 'training-hub-v2';
 const BASE = '/cycling-spin-mobility';
 const ASSETS = [
   BASE + '/index.html',
   BASE + '/spin.html',
   BASE + '/mobility.html',
+  BASE + '/kettlebell.html',
   BASE + '/workouts.json',
   BASE + '/manifest.json',
   BASE + '/icon-192.png',
@@ -24,6 +25,12 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   e.respondWith(
-    caches.match(e.request).then(r => r || fetch(e.request).catch(() => new Response('')))
+    fetch(e.request)
+      .then(r => {
+        const copy = r.clone();
+        caches.open(CACHE).then(c => c.put(e.request, copy));
+        return r;
+      })
+      .catch(() => caches.match(e.request).then(r => r || new Response('')))
   );
 });
